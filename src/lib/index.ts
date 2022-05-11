@@ -1,6 +1,12 @@
 import { MXIKSearchSymbol } from '../api'
 import { MXIKSearchOptionsObj, MXIKSearchResponseObj } from '../typings'
 
+/**
+ * Search items by keyword
+ * @param keyword {string}
+ * @param limit {number}
+ * @returns {Promise<MXIKSearchResponseObj>}
+ */
 export async function MXIKSearch(keyword: string, { limit }: MXIKSearchOptionsObj): Promise<MXIKSearchResponseObj> {
     try {
         const { data: response  } = await MXIKSearchSymbol({ keyword, limit })
