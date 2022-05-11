@@ -14,52 +14,72 @@ export interface MXIKPageableObj {
 }
 
 export interface NXIKItemUnitObj {
-    id: number,
-    name: string,
-    nameUz: string,
-    nameRu: string,
-    nameEng?: string,
-    nameLatin?: string,
-    unit: string,
-    commonUnitsId: number,
-    difference?: string,
+    id: number
+    name: string
+    nameUz: string
+    nameRu: string
+    nameEng?: string
+    nameLatin?: string
+    unit: string
+    commonUnitsId: number
+    difference?: string
     description?: string
 }
 
 export interface MXIKItemObj {
-    mxikCode: string,
-    groupName: string,
-    className: string,
-    positionName: string,
-    subPositionName: string,
-    brandName: string | null,
-    attributeName: string | null,
-    unitCode: number,
-    unitName: string,
-    commonUnitCode: number,
-    commonUnitName: string,
-    internationalCode: number | null,
-    units: NXIKItemUnitObj[],
-    myProduct: number,
+    mxikCode: string
+    groupName: string
+    className: string
+    positionName: string
+    subPositionName: string
+    brandName: string | null
+    attributeName: string | null
+    unitCode: number
+    unitName: string
+    commonUnitCode: number
+    commonUnitName: string
+    internationalCode: number | null
+    units: NXIKItemUnitObj[]
+    myProduct: number
     packages?: string | null
 }
 
-export interface MXIKResponseObj {
-    success: boolean,
-    code: number,
-    reason: 'ok' | 'error',
+export interface MXIKSearchSymbolResponseObj {
+    success: boolean
+    code: number
+    reason: 'ok' | 'error'
     data: {
-        content: MXIKItemObj[],
+        content: MXIKItemObj[]
         pageable: MXIKPageableObj
-        last: boolean,
-        totalPages: number,
-        totalElements: number,
+        last: boolean
+        totalPages: number
+        totalElements: number
         sort: MXIKSortObj
-        first: boolean,
-        numberOfElements: number,
-        size: number,
-        number: number,
+        first: boolean
+        numberOfElements: number
+        size: number
+        number: number
         empty: boolean
-    },
+    }
     errors: string | null
+}
+
+export interface MXIKSearchParamsObj {
+    keyword: string
+    limit?: number
+}
+
+export interface MXIKSearchOptionsObj {
+    limit?: number
+}
+
+export interface MXIKSearchResponseObj {
+    items: MXIKItemObj[]
+    pagination: {
+        totalPages: number
+        totalItems: number
+        perPage: number
+        isFirstPage: boolean
+        isLastPage: boolean
+    }
 }

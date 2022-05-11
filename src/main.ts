@@ -1,8 +1,10 @@
 import './style.css'
+import { MXIKSearch } from './lib'
+
+// Usage example
+const response = await MXIKSearch('футболка', { limit: 10 })
+console.log(response)
+
 
 const app = document.querySelector<HTMLDivElement>('#app')!
-
-app.innerHTML = `
-  <h1>Hello Vite!</h1>
-  <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation</a>
-`
+app.innerHTML = `<h1>mxik</h1>`
