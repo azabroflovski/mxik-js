@@ -1,6 +1,6 @@
 # mxik-js
 
-Simple package for API calls [tasnif.soliq.uz](https://www.onlinepbx.ru/)  (written in TypeScript ⚡) ️
+Simple package for API calls [tasnif.soliq.uz](https://tasnif.soliq.uz/)  (written in TypeScript ⚡) ️
 
 ## Install
 Via package manager
