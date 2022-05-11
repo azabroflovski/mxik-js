@@ -1,7 +1,31 @@
 {
   "name": "mxik",
-  "private": true,
-  "version": "0.0.0",
+  "description": "API wrapper over tasnif.soliq.uz for finding mxik codes (written in TypeScript)",
+  "keywords": ["mxik", "mxikjs", "ikpu", "tasnif.soliq.uz", "soliq.uz", "soliq"],
+  "version": "0.0.1",
+  "author": {
+    "name": "Aza Broflovski",
+    "url": "https://github.com/azabroflovski",
+    "email": "azabroflovski@gmail.com"
+  },
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/azabroflovski/mxik.git"
+  },
+  "bugs": {
+    "email": "azabroflovski@gmail.com",
+    "url": "https://github.com/azabroflovski/mxik/issues"
+  },
+  "files": ["dist"],
+  "main": "./dist/mxik.umd.js",
+  "module": "./dist/mxik.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/mxik.es.js",
+      "require": "./dist/mxik.umd.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
