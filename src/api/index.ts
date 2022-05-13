@@ -7,7 +7,7 @@ import {
 } from '../typings'
 
 export const http = createHttpClient({
-    baseURL: 'https://tasnif.soliq.uz/api' // see .env
+    baseURL: import.meta.env.MXIK_API_URL
 })
 
 /**
