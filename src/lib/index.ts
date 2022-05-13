@@ -1,5 +1,6 @@
 import { MXIKSearchSymbol } from '../api'
 import { MXIKSearchOptionsObj, MXIKSearchResponseObj } from '../typings'
+import { MXIKUnknownException } from '../exceptions'
 
 /**
  * Search items by keyword
@@ -22,6 +23,6 @@ export async function MXIKSearch(keyword: string, { limit }: MXIKSearchOptionsOb
             }
         }
     } catch (error) {
-        throw error
+        throw new MXIKUnknownException('Something wrong')
     }
 }
