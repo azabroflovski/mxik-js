@@ -65,7 +65,7 @@ export interface MXIKSearchSymbolResponseObj {
 }
 
 export interface MXIKSearchParamsObj {
-    keyword: string
+    keyword: string | number
     limit?: number
 }
 
