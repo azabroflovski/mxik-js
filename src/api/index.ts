@@ -24,3 +24,19 @@ export function MXIKSearchSymbol({ keyword = '', limit = 20 }: MXIKSearchParamsO
         }
     })
 }
+
+/**
+ * Search items by mxik code
+ * @param {Object} params
+ * @param {number} params.keyword
+ * @param {number} params.limit
+ * @returns {AxiosResponse}
+ */
+ export function MXIKSearchByParams({ keyword, limit = 20 }: MXIKSearchParamsObj): Promise<AxiosResponse<MXIKSearchSymbolResponseObj>> {
+    return http.get('cls-api/mxik/search/by-params', {
+        params: {
+            mxikCode: keyword,
+            size: limit,
+        }
+    })
+}
