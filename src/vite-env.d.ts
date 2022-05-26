@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-    readonly MXIK_API_URL: string
+    readonly VITE_MXIK_API_URL: string
 }
 
 interface ImportMeta {

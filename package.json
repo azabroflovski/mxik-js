@@ -2,7 +2,7 @@
   "name": "mxik",
   "description": "API wrapper over tasnif.soliq.uz for finding mxik codes (written in TypeScript)",
   "keywords": ["mxik", "mxikjs", "ikpu", "tasnif.soliq.uz", "soliq.uz", "soliq"],
-  "version": "0.2.2",
+  "version": "0.2.3",
   "author": {
     "name": "Aza Broflovski",
     "url": "https://github.com/azabroflovski",

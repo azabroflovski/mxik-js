@@ -7,7 +7,7 @@ import {
 } from '../typings'
 
 export const http = createHttpClient({
-    baseURL: import.meta.env.MXIK_API_URL
+    baseURL: import.meta.env.VITE_MXIK_API_URL
 })
 
 /**
