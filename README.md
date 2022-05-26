@@ -59,6 +59,15 @@ Example
 | options `object`       | { ... }       | Search options       |
 | options.limit `object` | 20            | Items count per page |
 
+----
+
+#### `MXIKSearchByCode(keyword: string, options: object)`
+| Param                  | Default value | Description          |
+|:-----------------------|:--------------|:---------------------|
+| keyword `string`       | -             | Pass a mxik code     |
+| options `object`       | { ... }       | Search options       |
+| options.limit `object` | 20            | Items count per page |
+
 
 ## License
 
