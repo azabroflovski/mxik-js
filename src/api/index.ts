@@ -13,7 +13,7 @@ export const http = createHttpClient({
 /**
  * Search items via keyword
  * @param keyword {string}
- * @param size {number}
+ * @param limit {number}
  * @returns {AxiosResponse}
  */
 export function MXIKSearchSymbol({ keyword = '', limit = 20 }: MXIKSearchParamsObj): Promise<AxiosResponse<MXIKSearchSymbolResponseObj>> {
