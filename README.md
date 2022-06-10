@@ -45,10 +45,32 @@ Example
         async function doSomething() {
             const response = await MXIKSearch('search query', { limit: 10 })
         }
+        
+        async function doAnother() {
+            const response = await MXIKSearchByCode('06109001001000000', { limit: 10 })
+        }
     </script>
 </body>
 ```
 
+## Examples
+
+### Search items
+
+```js
+async function doSomething() {
+    const response = await MXIKSearch('search query', { limit: 10 })
+}
+```
+
+
+### Get items by mxik code
+
+```js
+async function doSomething() {
+    const response = await MXIKSearchByCode('06109001001000000', { limit: 10 })
+}
+```
 
 ## API
 
