@@ -64,11 +64,19 @@ async function doSomething() {
 ```
 
 
-### Get items by mxik code
+### Search items by mxik code  
 
 ```js
 async function doSomething() {
     const response = await MXIKSearchByCode('06109001001000000', { limit: 10 })
+}
+```
+
+### Get mxik code details
+
+```js
+async function doSomething() {
+    const response = await MXIKDetails('06109001001000000')
 }
 ```
 
@@ -89,6 +97,13 @@ async function doSomething() {
 | keyword `string`       | -             | Pass a mxik code     |
 | options `object`       | { ... }       | Search options       |
 | options.limit `object` | 20            | Items count per page |
+
+----
+
+#### `MXIKDetails(code: string | number)`
+| Param                | Default value | Description          |
+|:---------------------|:--------------|:---------------------|
+| code `string/number` | -             | Pass a mxik code     |
 
 
 ## License

@@ -1,5 +1,5 @@
-import { MXIKSearchSymbol, MXIKSearchByParams } from '../api'
-import { MXIKSearchOptionsObj, MXIKSearchResponseObj } from '../typings'
+import { MXIKSearchSymbol, MXIKSearchByParams, MXIKByCode } from '../api'
+import { MXIKCode, MXIKSearchOptionsObj, MXIKSearchResponseObj } from '../typings'
 import { MXIKUnknownException } from '../exceptions'
 
 /**
@@ -50,4 +50,17 @@ export async function MXIKSearch(keyword: string, { limit }: MXIKSearchOptionsOb
     } catch (error) {
         throw new MXIKUnknownException('Something wrong')
     }
+}
+
+/**
+ * Get MXIK details by code
+ * @param code {number}
+ * @return Promise<MXIKDetail>}
+ */
+export async function MXIKDetails(code: MXIKCode) {
+     try {
+         return await MXIKByCode(code)
+     } catch (error) {
+         throw new MXIKUnknownException('Something wrong')
+     }
 }

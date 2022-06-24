@@ -3,7 +3,9 @@ import { AxiosResponse } from 'axios'
 
 import {
     MXIKSearchParamsObj,
-    MXIKSearchSymbolResponseObj
+    MXIKSearchSymbolResponseObj,
+    MXIKCode,
+    MXIKDetail
 } from '../typings'
 
 export const http = createHttpClient({
@@ -37,6 +39,19 @@ export function MXIKSearchSymbol({ keyword = '', limit = 20 }: MXIKSearchParamsO
         params: {
             mxikCode: keyword,
             size: limit,
+        }
+    })
+}
+
+/**
+ * Get MXIK details by code
+ * @param code {number}
+ * @return {AxiosResponse}
+ */
+export function MXIKByCode(code: MXIKCode): Promise<AxiosResponse<MXIKDetail>> {
+    return http.get('cls-api/mxik/get/by-mxik', {
+        params: {
+            mxikCode: code
         }
     })
 }

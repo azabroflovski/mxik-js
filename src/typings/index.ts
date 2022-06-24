@@ -83,3 +83,52 @@ export interface MXIKSearchResponseObj {
         isLastPage: boolean
     }
 }
+
+export type MXIKCode = string | number
+
+export interface MXIKPackageItem {
+    code: number
+    parentCode: number
+    mxikCode: string
+    containerCode: number
+    containerName: string
+    containerNamePl: string | null
+    containerNamePl2: string | null
+    unitId: number
+    unitName: string
+    parentValue: number
+    name: string
+    type: string
+    childNames: string
+    childValues: string
+    isUnitPackage: string
+    createdAt: string
+    createdBy: string
+    children: string[]
+    childrenValue: string[]
+}
+
+export interface MXIKDetail {
+    mxikCode: string
+    groupName: string
+    groupCode: string
+    className: string
+    classCode: string
+    positionName: string
+    positionCode: string
+    subPositionName: string
+    subPositionCode: string
+    brandName: string | null
+    brandCode: string
+    mxikName: string
+    attributeName: string | null
+    unitCode: string | null
+    unitName: string | null
+    commonUnitCode: string | null
+    commonUnitName: string | null
+    internationalCode: string | null
+    label: number
+    units: string | number
+    myProduct: number
+    packages: MXIKPackageItem[]
+}
