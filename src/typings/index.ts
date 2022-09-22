@@ -64,6 +64,26 @@ export interface MXIKSearchSymbolResponseObj {
     errors: string | null
 }
 
+export interface MXIKSearchSubpositionsResponseObj {
+    success: boolean
+    code: number
+    reason: 'ok' | 'error'
+    data: {
+        content: MXIKItemObj[]
+        pageable: MXIKPageableObj
+        last: boolean
+        totalPages: number
+        totalElements: number
+        sort: MXIKSortObj
+        first: boolean
+        numberOfElements: number
+        size: number
+        number: number
+        empty: boolean
+    }
+    errors: string | null
+}
+
 export interface MXIKSearchParamsObj {
     keyword: string | number
     limit?: number
