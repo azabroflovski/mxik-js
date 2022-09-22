@@ -1,5 +1,5 @@
-import { MXIKSearchSymbol, MXIKSearchByParams, MXIKByCode } from '../api'
-import { MXIKCode, MXIKSearchOptionsObj, MXIKSearchResponseObj } from '../typings'
+import { MXIKSearchSymbol, MXIKSearchByParams, MXIKByCode, MXIKBySubpositions } from '../api'
+import { MXIKCode, MXIKDetail, MXIKSearchOptionsObj, MXIKSearchResponseObj } from '../typings'
 import { MXIKUnknownException } from '../exceptions'
 
 /**
@@ -55,12 +55,40 @@ export async function MXIKSearch(keyword: string, { limit }: MXIKSearchOptionsOb
 /**
  * Get MXIK details by code
  * @param code {number}
- * @return Promise<MXIKDetail>}
+ * @return {Promise<MXIKDetail>}
  */
-export async function MXIKDetails(code: MXIKCode) {
+export async function MXIKDetails(code: MXIKCode): Promise<MXIKDetail> {
      try {
-         return await MXIKByCode(code)
+        const { data: response  } = await MXIKByCode(code)
+        
+        return response
+
      } catch (error) {
          throw new MXIKUnknownException('Something wrong')
      }
+}
+
+/**
+ * Search items by keyword in subpositions
+ * @param keyword {string}
+ * @param limit {number}
+ * @returns {Promise<MXIKSearchResponseObj>}
+ */
+ export async function MXIKSearchBySubpositions(keyword: string, { limit }: MXIKSearchOptionsObj): Promise<MXIKSearchResponseObj> {
+    try {
+        const { data: response  } = await MXIKBySubpositions({ keyword, limit })
+
+        return {
+            items: response.data.content,
+            pagination: {
+                totalPages: response.data.totalPages,
+                totalItems: response.data.totalElements,
+                perPage: response.data.size,
+                isFirstPage: response.data.first,
+                isLastPage: response.data.last,
+            }
+        }
+    } catch (error) {
+        throw new MXIKUnknownException('Something wrong')
+    }
 }

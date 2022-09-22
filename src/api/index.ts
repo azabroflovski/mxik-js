@@ -4,6 +4,7 @@ import { AxiosResponse } from 'axios'
 import {
     MXIKSearchParamsObj,
     MXIKSearchSymbolResponseObj,
+    MXIKSearchSubpositionsResponseObj,
     MXIKCode,
     MXIKDetail
 } from '../typings'
@@ -52,6 +53,20 @@ export function MXIKByCode(code: MXIKCode): Promise<AxiosResponse<MXIKDetail>> {
     return http.get('cls-api/mxik/get/by-mxik', {
         params: {
             mxikCode: code
+        }
+    })
+}
+
+/**
+ * Get MXIK details by subpositions
+ * @param code {number}
+ * @return {AxiosResponse}
+ */
+export function MXIKBySubpositions({ keyword = '', limit = 20 }: MXIKSearchParamsObj): Promise<AxiosResponse<MXIKSearchSubpositionsResponseObj>> {
+    return http.get('cls-api/mxik/search-subposition', {
+        params: {
+            search_text: keyword,
+            size: limit
         }
     })
 }
