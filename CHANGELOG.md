@@ -1,5 +1,17 @@
 # Changelog 
 
+## v1.1.0
+
+[compare changes](https://github.com/azabroflovski/mxik/compare/v1.0.0-alpha...v1.1.0)
+
+### 🚀 Enhancements
+
+- Build via tsc (instead vite) ([45fb5ed](https://github.com/azabroflovski/mxik/commit/45fb5ed))
+
+### ❤️ Contributors
+
+- azabroflovski <azabroflovski@gmail.com>
+
 ## v1.0.0
 
 [compare changes](https://github.com/azabroflovski/mxik/compare/v1.0.0-alpha...v1.0.0)
@@ -10,7 +22,7 @@
 
 ### ❤️ Contributors
 
-- Azabroflovski <azabroflovski@gmail.com>
+- azabroflovski <azabroflovski@gmail.com>
 
 ### 🚀 Enhancements
 
