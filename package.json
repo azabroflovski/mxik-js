@@ -1,14 +1,25 @@
 {
   "name": "mxik",
   "description": "API client over tasnif.soliq.uz for finding mxik codes (written in TypeScript)",
-  "keywords": ["mxik", "mxikjs", "mxik-js", "ikpu", "tasnif.soliq.uz", "soliq.uz", "soliq"],
+  "keywords": [
+    "mxik",
+    "mxikjs",
+    "mxik-js",
+    "ikpu",
+    "tasnif.soliq.uz",
+    "soliq.uz",
+    "soliq"
+  ],
   "version": "1.1.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "bun test && tsc",
     "test": "bun test",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "author": {
     "name": "Aza Broflovski",
@@ -42,5 +53,8 @@
     "@types/bun": "latest",
     "eslint": "^9.7.0",
     "typescript": "^5.5.3"
+  },
+  "dependencies": {
+    "vitepress": "^1.3.1"
   }
 }
