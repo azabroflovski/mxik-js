@@ -1,5 +1,26 @@
 # Changelog 
 
+## v1.1.3
+
+[compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.2...v1.1.3)
+
+### 🚀 Enhancements
+
+- Add documentation (powered by vitepress) ([1e917e7](https://github.com/azabroflovski/mxik/commit/1e917e7))
+
+### 🩹 Fixes
+
+- **deploy:** Use bun instead node (in ci) ([8c32c7f](https://github.com/azabroflovski/mxik/commit/8c32c7f))
+- **deploy:** Set vitepress base options (for correct assets path) ([bb62eb4](https://github.com/azabroflovski/mxik/commit/bb62eb4))
+
+### 🏡 Chore
+
+- Configure docs ci/cd ([44c2f69](https://github.com/azabroflovski/mxik/commit/44c2f69))
+
+### ❤️ Contributors
+
+- azabroflovski <azabroflovski@gmail.com>
+
 ## v1.1.2
 
 [compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.1...v1.1.2)
