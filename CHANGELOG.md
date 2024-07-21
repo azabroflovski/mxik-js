@@ -1,5 +1,17 @@
 # Changelog 
 
+## v1.0.0
+
+[compare changes](https://github.com/azabroflovski/mxik/compare/v1.0.0-alpha...v1.0.0)
+
+### 🏡 Chore
+
+- Add changelog ([95edf43](https://github.com/azabroflovski/mxik/commit/95edf43))
+
+### ❤️ Contributors
+
+- Azabroflovski <azabroflovski@gmail.com>
+
 ### 🚀 Enhancements
 
 - Add MXIKSearch interface ([6467364](https://github.com/azabroflovski/mxik/commit/6467364))

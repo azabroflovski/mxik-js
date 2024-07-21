@@ -1,8 +1,9 @@
 {
   "name": "mxik",
-  "description": "API wrapper over tasnif.soliq.uz for finding mxik codes (written in TypeScript)",
+  "description": "API client over tasnif.soliq.uz for finding mxik codes (written in TypeScript)",
   "keywords": ["mxik", "mxikjs", "ikpu", "tasnif.soliq.uz", "soliq.uz", "soliq"],
-  "version": "1.0.0-alpha",
+  "version": "1.0.0",
+  "type": "module",
   "author": {
     "name": "Aza Broflovski",
     "url": "https://github.com/azabroflovski",
@@ -18,12 +19,13 @@
     "url": "https://github.com/azabroflovski/mxik/issues"
   },
   "files": ["dist"],
-  "main": "./dist/mxik.umd.js",
+  "main": "./dist/mxik.js",
   "module": "./dist/mxik.es.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/mxik.es.js",
-      "require": "./dist/mxik.umd.js"
+      "require": "./dist/mxik.js"
     }
   },
   "scripts": {
@@ -32,10 +34,13 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "typescript": "^5.0.2",
-    "vite": "^4.2.0"
-  },
-  "dependencies": {
-    "axios": "^0.27.2"
+    "@antfu/eslint-config": "^2.23.1",
+    "@types/bun": "latest",
+    "ajv": "^8.17.1",
+    "eslint": "^9.7.0",
+    "terser": "^5.31.3",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.4",
+    "vite-plugin-dts": "^4.0.0-beta.1"
   }
 }
