@@ -1,5 +1,17 @@
 # Changelog 
 
+## v1.1.2
+
+[compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.1...v1.1.2)
+
+### 🩹 Fixes
+
+- **package:** D.ts file issue ([83e9b7d](https://github.com/azabroflovski/mxik/commit/83e9b7d))
+
+### ❤️ Contributors
+
+- azabroflovski <azabroflovski@gmail.com>
+
 ## v1.1.1
 
 [compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.0...v1.1.1)

@@ -2,7 +2,7 @@
   "name": "mxik",
   "description": "API client over tasnif.soliq.uz for finding mxik codes (written in TypeScript)",
   "keywords": ["mxik", "mxikjs", "mxik-js", "ikpu", "tasnif.soliq.uz", "soliq.uz", "soliq"],
-  "version": "1.1.1",
+  "version": "1.1.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
