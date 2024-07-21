@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { MxikClient } from '@/lib'
+import { MxikClient } from '@lib/index'
 
 describe('Creating client instance', () => {
   test('new MxikClient()', () => {

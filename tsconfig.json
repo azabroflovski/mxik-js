@@ -9,18 +9,19 @@
     "moduleResolution": "Node",
     "strict": true,
     "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "skipLibCheck": true,
     "paths": {
-      "@/*": ["src/*"]
+      "@lib/*": ["lib/*"]
     }
   },
-  "include": ["src"],
+  "include": ["lib"],
   "exclude": ["node_modules"]
 }
