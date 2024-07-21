@@ -25,7 +25,7 @@
     "url": "https://github.com/azabroflovski/mxik/issues"
   },
   "files": [
-    "lib",
+    "dist",
     "lib/**/*.d.ts"
   ],
   "main": "./dist/index.js",
