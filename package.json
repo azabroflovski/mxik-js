@@ -13,10 +13,8 @@
   "version": "1.1.2",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "bun test && tsc",
     "test": "bun test",
-    "preview": "vite preview",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
