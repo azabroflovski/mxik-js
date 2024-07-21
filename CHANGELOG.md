@@ -1,5 +1,17 @@
 # Changelog 
 
+## v1.1.1
+
+[compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.0...v1.1.1)
+
+### 🩹 Fixes
+
+- **package:** Correct files path ([067dd63](https://github.com/azabroflovski/mxik/commit/067dd63))
+
+### ❤️ Contributors
+
+- azabroflovski <azabroflovski@gmail.com>
+
 ## v1.1.0
 
 [compare changes](https://github.com/azabroflovski/mxik/compare/v1.0.0-alpha...v1.1.0)
