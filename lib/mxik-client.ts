@@ -10,7 +10,7 @@ import {
 /**
  * A client for interacting with the MXIK API.
  */
-export class MxikClient {
+export class MxikClient implements Client {
   /**
    * Searches by keyword.
    * @param {string} name - The keyword to search for.

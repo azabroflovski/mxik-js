@@ -73,6 +73,8 @@ await mxik.search('Футболка')
 await mxik.code('06111001018000000')
 ```
 
+Go to [API Reference](/api#client) to see more methods
+
 ## Contributing
 If you would like to contribute to the project, please read the contributing guidelines.
 
