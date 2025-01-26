@@ -65,3 +65,10 @@ export class MxikClient implements Client {
     return fetchByParams(attributes)
   }
 }
+
+/**
+ * Helper for creating mxik client
+ */
+export function createMxikClient() {
+  return new MxikClient()
+}
