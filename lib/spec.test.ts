@@ -40,7 +40,7 @@ describe('Check method', () => {
     expect(response.data.content?.at(0)).toHaveProperty('brandName')
   })
 
-  test(`mxik.barCode('${barcode}')`, async () => {
+  test(`mxik.barcode('${barcode}')`, async () => {
     const response = await mxik.barcode(barcode)
 
     expect(response).toHaveProperty('code')
