@@ -1,25 +1,17 @@
-## Getting Started
+# mxik
 
-### Installation
+js/ts client for tasnif.soliq.uz
 
-You can install the package using the following command:
+## Installation
 
-::: code-group
+You can install the package via
 
-```sh [npm]
-npm i mxik
+
+```sh 
+npm i mxik # pnpm i mxik | bun add mxik
 ```
 
-```sh [pnpm]
-pnpm i mxik
-```
-
-```sh [bun]
-bun add mxik
-```
-:::
-
-### Importing the Package
+## Importing the Package
 After installing the package, you can import it into your project. Below is an example of how to import the package:
 
 #### ES6
@@ -27,12 +19,12 @@ After installing the package, you can import it into your project. Below is an e
 import { MxikClient } from 'mxik'
 ```
 
-### CommonJS
+#### CommonJS
 ```ts
 const MxikClient = require('mxik')
 ```
 
-### Usage
+## Usage
 Here are some examples of how to use the package:
 
 ```ts 
@@ -46,9 +38,6 @@ await mxik.search('Футболка')
 // or get mxik code detais
 await mxik.code('06111001018000000')
 ```
-
-## Contributing
-If you would like to contribute to the project, please read the contributing guidelines.
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for more details.
