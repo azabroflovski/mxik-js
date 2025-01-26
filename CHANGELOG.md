@@ -1,5 +1,27 @@
 # Changelog 
 
+## v1.1.4
+
+[compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.3...v1.1.4)
+
+### 🚀 Enhancements
+
+- Add create mxik client helper ([7d2f93c](https://github.com/azabroflovski/mxik/commit/7d2f93c))
+- **vitepress:** Add footer text ([15b6fcf](https://github.com/azabroflovski/mxik/commit/15b6fcf))
+
+### 💅 Refactors
+
+- Update docs ([8aefddd](https://github.com/azabroflovski/mxik/commit/8aefddd))
+
+### 📖 Documentation
+
+- Add api references page ([143a5fc](https://github.com/azabroflovski/mxik/commit/143a5fc))
+- Update readme ([c643cfd](https://github.com/azabroflovski/mxik/commit/c643cfd))
+
+### ❤️ Contributors
+
+- azabroflovski <azabroflovski@gmail.com>
+
 ## v1.1.3
 
 [compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.2...v1.1.3)
