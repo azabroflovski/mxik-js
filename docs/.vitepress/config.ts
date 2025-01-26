@@ -15,5 +15,9 @@ export default defineConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/azabroflovski/mxik-js' },
     ],
+
+    footer: {
+      copyright: '&copy; azabroflovski'
+    }
   },
 })
