@@ -17,10 +17,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "skipLibCheck": true,
-    "paths": {
-      "@lib/*": ["lib/*"]
-    }
+    "skipLibCheck": true
   },
   "include": ["lib"],
   "exclude": ["node_modules"]

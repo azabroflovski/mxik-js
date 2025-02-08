@@ -5,7 +5,7 @@ import {
   fetchByDvCert,
   fetchByKeyword,
   fetchByParams,
-} from '@lib/api'
+} from './api'
 
 /**
  * A client for interacting with the MXIK API.

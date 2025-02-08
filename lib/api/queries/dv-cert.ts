@@ -1,4 +1,4 @@
-import { $api } from '@lib/api'
+import { $api } from '../'
 
 /**
  * Fetches data by DV certificate number.

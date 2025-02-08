@@ -1,4 +1,4 @@
-import { fetchByParams } from '@lib/api/queries/params'
+import { fetchByParams } from '../queries/params'
 
 /**
  * Fetches data by brand name.
