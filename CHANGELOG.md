@@ -1,5 +1,17 @@
 # Changelog 
 
+## v1.1.7
+
+[compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.6...v1.1.7)
+
+### 🩹 Fixes
+
+- **build:** Remove unused vite env import (legacy) ([3aebf00](https://github.com/azabroflovski/mxik/commit/3aebf00))
+
+### ❤️ Contributors
+
+- azabroflovski <azabroflovski@gmail.com>
+
 ## v1.1.6
 
 [compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.5...v1.1.6)
