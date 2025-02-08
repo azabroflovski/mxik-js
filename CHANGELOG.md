@@ -1,5 +1,17 @@
 # Changelog 
 
+## v1.1.6
+
+[compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.5...v1.1.6)
+
+### 🩹 Fixes
+
+- Build issue (now use relative paths instead alias) ([4e2c445](https://github.com/azabroflovski/mxik/commit/4e2c445))
+
+### ❤️ Contributors
+
+- azabroflovski <azabroflovski@gmail.com>
+
 ## v1.1.5
 
 [compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.4...v1.1.5)
