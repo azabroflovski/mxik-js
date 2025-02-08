@@ -1,5 +1,17 @@
 # Changelog 
 
+## v1.1.5
+
+[compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.4...v1.1.5)
+
+### 🩹 Fixes
+
+- **npm:** Dist issue ([b9c6562](https://github.com/azabroflovski/mxik/commit/b9c6562))
+
+### ❤️ Contributors
+
+- azabroflovski <azabroflovski@gmail.com>
+
 ## v1.1.4
 
 [compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.3...v1.1.4)
