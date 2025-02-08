@@ -10,9 +10,9 @@ describe('Creating client instance', () => {
 describe('Check method', () => {
   const mxik = new MxikClient()
   const mxikCode = '00406001001232001'
-  const brandName = 'samsung'
+  const brandName = 'Xiaomi'
   const barcode = '0000'
-  const searchQuery = 'Кофе'
+  const searchQuery = 'Kofe'
 
   test(`mxik.code('${mxikCode}')`, async () => {
     const response = await mxik.code(mxikCode)
