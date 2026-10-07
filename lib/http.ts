@@ -47,19 +47,22 @@ export interface SpringPage<T> {
   last: boolean
 }
 
-/** Performs a GET request and returns the parsed JSON body without inspecting the envelope. */
-export async function request<T>(config: HttpConfig, path: string, query: Query = {}, signal?: AbortSignal): Promise<T> {
+export function buildURL(baseURL: string, path: string, query: Query = {}): string {
   const params = new URLSearchParams()
   for (const [key, value] of Object.entries(query)) {
     if (value !== undefined)
       params.set(key, String(value))
   }
   const qs = params.size ? `?${params}` : ''
+  return `${baseURL}${path}${qs}`
+}
 
+/** Performs a GET request and returns the parsed JSON body without inspecting the envelope. */
+export async function request<T>(config: HttpConfig, path: string, query: Query = {}, signal?: AbortSignal): Promise<T> {
   const signals = [signal, config.timeout > 0 ? AbortSignal.timeout(config.timeout) : undefined]
     .filter(s => s !== undefined)
 
-  const response = await config.fetch(`${config.baseURL}${path}${qs}`, {
+  const response = await config.fetch(buildURL(config.baseURL, path, query), {
     headers: { accept: 'application/json', ...config.headers },
     signal: signals.length ? AbortSignal.any(signals) : undefined,
   })

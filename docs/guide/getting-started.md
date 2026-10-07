@@ -42,6 +42,7 @@ const mxik = createMxik({
   baseURL: 'https://my-proxy.local/cls-api', // default https://tasnif.soliq.uz/api/cls-api
   fetch: customFetch, // default globalThis.fetch
   headers: { 'x-my-header': '1' },
+  cache: true, // see Cache below, default off
 })
 ```
 
@@ -124,6 +125,69 @@ for await (const item of mxik.filterAll({ brand: 'Xiaomi' }, { size: 100 })) {
     break
 }
 ```
+
+## Cache
+
+Off by default. The catalog changes rarely, so caching is worth enabling for anything that repeats lookups:
+
+```ts
+const mxik = createMxik({ cache: true })
+```
+
+This uses an in-memory store with 1 hour TTL that keeps up to 500 results and evicts the least recently used. Tune it:
+
+```ts
+const mxik = createMxik({
+  cache: {
+    ttl: 10 * 60 * 1000, // 10 minutes
+    max: 2000,
+  },
+})
+```
+
+What gets cached:
+
+- Results of `search`, `get`, `filter` and `dvCert`, including pages fetched by `searchAll` / `filterAll`.
+- "Not found" results: `null` from `get()` and empty pages.
+- Not errors: a failed request is retried next time.
+
+The key is the full request URL, so different queries, pages, sizes and languages are cached separately.
+
+::: warning
+Cached results are shared objects. Don't mutate them, or the next call will return your changes.
+:::
+
+### Clearing
+
+Create the store yourself to keep a handle on it:
+
+```ts
+import { createMemoryCache, createMxik } from 'mxik'
+
+const cache = createMemoryCache({ max: 1000 })
+const mxik = createMxik({ cache: { store: cache } })
+
+cache.clear()
+```
+
+### Custom store
+
+Any object with `get`, `set` and `delete` works, a plain `Map` included. Methods may be async, so Redis or a KV store fit too:
+
+```ts
+const mxik = createMxik({
+  cache: {
+    ttl: 24 * 60 * 60 * 1000,
+    store: {
+      get: async key => JSON.parse(await redis.get(key) ?? 'null') ?? undefined,
+      set: (key, entry) => redis.set(key, JSON.stringify(entry), 'PX', entry.expires - Date.now()),
+      delete: key => redis.del(key),
+    },
+  },
+})
+```
+
+The client stores `{ value, expires }` entries and checks `expires` itself, setting a TTL in the store is optional.
 
 ## Errors
 

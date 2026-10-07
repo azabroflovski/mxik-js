@@ -1,3 +1,5 @@
+import type { CacheStore } from './cache'
+
 /**
  * Response language. The API supports only Russian and Uzbek (cyrillic),
  * any other value silently falls back to `uz`.
@@ -17,6 +19,20 @@ export interface MxikOptions {
   fetch?: typeof globalThis.fetch
   /** Extra headers sent with every request. */
   headers?: Record<string, string>
+  /**
+   * Caches successful results, errors are never cached. Off by default.
+   * `true` uses an in-memory LRU store with 1 hour TTL and 500 entries.
+   */
+  cache?: boolean | CacheOptions
+}
+
+export interface CacheOptions {
+  /** Time to live in ms. @default 3_600_000 (1 hour) */
+  ttl?: number
+  /** Max entries of the default in-memory store, ignored with a custom `store`. @default 500 */
+  max?: number
+  /** Custom store, e.g. `createMemoryCache()` to be able to clear it, or a Redis adapter. */
+  store?: CacheStore
 }
 
 export interface RequestOptions {

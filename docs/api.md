@@ -21,6 +21,33 @@ interface Mxik {
 }
 ```
 
+## `createMemoryCache(options?)`
+
+In-memory LRU store for `createMxik({ cache: { store } })`. Evicts the least recently used entry once `max` is reached.
+
+```ts
+function createMemoryCache(options?: { max?: number }): MemoryCache // max defaults to 500
+
+interface MemoryCache extends CacheStore {
+  get: (key: string) => CacheEntry | undefined
+  clear: () => void
+  readonly size: number
+}
+```
+
+```ts
+interface CacheStore {
+  get: (key: string) => CacheEntry | undefined | Promise<CacheEntry | undefined>
+  set: (key: string, entry: CacheEntry) => unknown
+  delete: (key: string) => unknown
+}
+
+interface CacheEntry {
+  value: unknown
+  expires: number // ms since epoch
+}
+```
+
 ## `isMxikCode(value)`
 
 Checks that a value is a string of exactly 17 digits. Doesn't check that the code exists.

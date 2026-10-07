@@ -1,6 +1,10 @@
+import type { CacheStore } from './cache'
 import type { Envelope, HttpConfig, Query, SpringPage } from './http'
 import type { CatalogItem, Filters, MxikDetails, MxikOptions, Page, PageOptions, RequestOptions, SearchItem } from './types'
-import { DEFAULT_BASE_URL, DEFAULT_TIMEOUT, MxikError, request } from './http'
+import { createMemoryCache } from './cache'
+import { buildURL, DEFAULT_BASE_URL, DEFAULT_TIMEOUT, MxikError, request } from './http'
+
+const DEFAULT_CACHE_TTL = 60 * 60 * 1000
 
 export interface Mxik {
   /** Full-text search over the catalog. */
@@ -32,6 +36,22 @@ export function createMxik(options: MxikOptions = {}): Mxik {
     fetch: options.fetch ?? globalThis.fetch,
     headers: options.headers,
   }
+  const cache = resolveCache(options.cache)
+
+  /** Requests `path` and turns the envelope into a result, going through the cache if enabled. */
+  async function load<T, R>(path: string, query: Query, signal: AbortSignal | undefined, parse: (res: Envelope<T>) => R): Promise<R> {
+    if (!cache)
+      return parse(await request<Envelope<T>>(http, path, query, signal))
+
+    const key = buildURL(http.baseURL, path, query)
+    const hit = await cache.store.get(key)
+    if (hit && hit.expires > Date.now())
+      return hit.value as R
+
+    const value = parse(await request<Envelope<T>>(http, path, query, signal))
+    await cache.store.set(key, { value, expires: Date.now() + cache.ttl })
+    return value
+  }
 
   function pageQuery(opts: PageOptions): Query {
     return {
@@ -41,33 +61,36 @@ export function createMxik(options: MxikOptions = {}): Mxik {
     }
   }
 
-  async function fetchPage(path: string, query: Query, opts: PageOptions): Promise<Page<CatalogItem>> {
-    const res = await request<Envelope<SpringPage<CatalogItem>>>(http, path, { ...query, ...pageQuery(opts) }, opts.signal)
-    // "Nothing found" comes as `success: false` with an empty page, it's not an error
-    if (!Array.isArray(res.data?.content))
-      throw new MxikError(res.reason || 'Unexpected response', 200, res.reason)
-    const { content, totalElements, number, size, last } = res.data
-    return { items: content, total: totalElements, page: number + 1, size, hasNext: !last }
+  function fetchPage(path: string, query: Query, opts: PageOptions): Promise<Page<CatalogItem>> {
+    return load<SpringPage<CatalogItem>, Page<CatalogItem>>(path, { ...query, ...pageQuery(opts) }, opts.signal, (res) => {
+      // "Nothing found" comes as `success: false` with an empty page, it's not an error
+      if (!Array.isArray(res.data?.content))
+        throw new MxikError(res.reason || 'Unexpected response', 200, res.reason)
+      const { content, totalElements, number, size, last } = res.data
+      return { items: content, total: totalElements, page: number + 1, size, hasNext: !last }
+    })
   }
 
-  async function search(query: string, opts: PageOptions = {}): Promise<Page<SearchItem>> {
+  function search(query: string, opts: PageOptions = {}): Promise<Page<SearchItem>> {
     const q = pageQuery(opts)
-    const res = await request<Envelope<SearchItem[]>>(http, '/elasticsearch/search', { search: query, ...q }, opts.signal)
-    if (!res.success || !Array.isArray(res.data))
-      throw new MxikError(res.reason || 'Unexpected response', 200, res.reason)
-    const total = res.recordTotal ?? res.data.length
-    const page = Number(q.page) + 1
-    const size = Number(q.size)
-    return { items: res.data, total, page, size, hasNext: page * size < total }
+    return load<SearchItem[], Page<SearchItem>>('/elasticsearch/search', { search: query, ...q }, opts.signal, (res) => {
+      if (!res.success || !Array.isArray(res.data))
+        throw new MxikError(res.reason || 'Unexpected response', 200, res.reason)
+      const total = res.recordTotal ?? res.data.length
+      const page = Number(q.page) + 1
+      const size = Number(q.size)
+      return { items: res.data, total, page, size, hasNext: page * size < total }
+    })
   }
 
-  async function get(code: string, opts: RequestOptions = {}): Promise<MxikDetails | null> {
-    const res = await request<Envelope<MxikDetails>>(http, `/integration-mxik/get/history/${encodeURIComponent(code)}`, {}, opts.signal)
-    if (res.success && res.data)
-      return res.data
-    if (/not found/i.test(res.reason))
-      return null
-    throw new MxikError(res.reason || 'Unexpected response', 200, res.reason)
+  function get(code: string, opts: RequestOptions = {}): Promise<MxikDetails | null> {
+    return load<MxikDetails, MxikDetails | null>(`/integration-mxik/get/history/${encodeURIComponent(code)}`, {}, opts.signal, (res) => {
+      if (res.success && res.data)
+        return res.data
+      if (/not found/i.test(res.reason))
+        return null
+      throw new MxikError(res.reason || 'Unexpected response', 200, res.reason)
+    })
   }
 
   function filter(filters: Filters, opts: PageOptions = {}): Promise<Page<CatalogItem>> {
@@ -91,6 +114,13 @@ export function createMxik(options: MxikOptions = {}): Mxik {
     filterAll: (filters, opts) => paginate(page => filter(filters, { ...opts, page })),
     dvCert,
   }
+}
+
+function resolveCache(option: MxikOptions['cache']): { store: CacheStore, ttl: number } | undefined {
+  if (!option)
+    return undefined
+  const { ttl = DEFAULT_CACHE_TTL, max, store = createMemoryCache({ max }) } = option === true ? {} : option
+  return { store, ttl }
 }
 
 async function* paginate<T>(fetchPage: (page: number) => Promise<Page<T>>): AsyncGenerator<T> {
