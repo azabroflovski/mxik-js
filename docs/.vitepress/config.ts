@@ -12,12 +12,23 @@ export default defineConfig({
       { text: 'API Reference', link: '/api' },
     ],
 
+    sidebar: [
+      {
+        text: 'Guide',
+        items: [
+          { text: 'Getting Started', link: '/guide/getting-started' },
+          { text: 'Migrating from 1.1', link: '/guide/migration' },
+          { text: 'API Reference', link: '/api' },
+        ],
+      },
+    ],
+
     socialLinks: [
       { icon: 'github', link: 'https://github.com/azabroflovski/mxik-js' },
     ],
 
     footer: {
-      copyright: '&copy; azabroflovski'
-    }
+      copyright: '&copy; azabroflovski',
+    },
   },
 })

@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: "MXIK"
-  text: "js/ts client for retreiving mxik codes"
+  text: "JS/TS client for MXIK (IKPU) codes"
   tagline: Simple wrapper over tasnif.soliq.uz
   actions:
     - theme: brand
@@ -13,13 +13,13 @@ hero:
 
 
 features:
-  - title: Zero dependency
+  - title: Zero dependencies
     icon: 🪶
-    details: Minimalist and Lightweight at 1kb
-  - title: SSR Friendly
+    details: About 2 kB gzipped, ESM and CommonJS.
+  - title: Runs anywhere
     icon: 💪
-    details: Designed for Browser, Node, Bun, and Deno compatibility.
-  - title: Fully Typed APIs
+    details: Node 20+, Bun, Deno, browsers and edge runtimes. Bring your own fetch if needed.
+  - title: Fully typed
     icon: 🔑
-    details: Flexible programmatic APIs with full TypeScript typing.
+    details: Unwrapped results, pagination, timeouts and AbortSignal out of the box.
 ---
