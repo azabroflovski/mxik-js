@@ -1,165 +1,169 @@
-# Changelog 
+# Changelog
 
-## v1.1.7
+All notable changes to this project are documented in this file.
 
-[compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.6...v1.1.7)
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-### 🩹 Fixes
+## [Unreleased]
 
-- **build:** Remove unused vite env import (legacy) ([3aebf00](https://github.com/azabroflovski/mxik/commit/3aebf00))
+## [1.2.0] - 2026-10-07
 
-### ❤️ Contributors
+A new client API built around `createMxik()`. The 1.1 API keeps working and is deprecated. See the [migration guide](https://azabroflovski.github.io/mxik-js/guide/migration).
 
-- azabroflovski <azabroflovski@gmail.com>
+### Added
 
-## v1.1.6
+- `createMxik(options)` client returning unwrapped results instead of raw API envelopes. Options: `lang`, `pageSize`, `timeout`, `baseURL`, `fetch`, `headers`.
+- `search()`, `get()`, `filter()` and `dvCert()` methods. Paginated methods accept `page`, `size`, `lang` and `signal` and return `Page<T>` with `items`, `total`, `page`, `size` and `hasNext`.
+- `searchAll()` and `filterAll()` async iterators that fetch pages lazily.
+- `filter()` with typed `text`, `brand`, `code` and `barcode` filters.
+- `MxikError` thrown on HTTP errors, non-JSON responses and `success: false` from the API.
+- `get()` returns `null` for unknown codes. An unknown barcode returns an empty page.
+- Request timeout, 10 seconds by default, and `AbortSignal` support.
+- `isMxikCode()` helper to validate the 17-digit code format.
+- CommonJS build alongside ESM.
+- All types are exported: `SearchItem`, `CatalogItem`, `MxikDetails`, `MxikPackage`, `Page`, `Filters`, `MxikOptions` and others.
+- Migration guide and API reference in the documentation.
 
-[compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.5...v1.1.6)
+### Changed
 
-### 🩹 Fixes
+- Built with tsdown into a single ESM and CJS bundle with bundled type declarations.
+- Node.js 20 or newer is required.
+- Legacy API requests now time out after 10 seconds.
 
-- Build issue (now use relative paths instead alias) ([4e2c445](https://github.com/azabroflovski/mxik/commit/4e2c445))
+### Deprecated
 
-### ❤️ Contributors
+- `MxikClient`, `createMxikClient()`, `fetchByKeyword()`, `fetchByParams()`, `fetchByBrand()`, `fetchByBarcode()`, `fetchByCode()` and `fetchByDvCert()`. Use `createMxik()` instead. They will be removed in 2.0.
+- Types `ResponseSchema`, `ResponseSchemaWithContent`, `ResponseSort`, `SearchResultItem`, `ByParamsResultItem`, `DvCertItem` and `PackageName`.
 
-- azabroflovski <azabroflovski@gmail.com>
+### Fixed
 
-## v1.1.5
+- Importing the package in Node.js without a bundler failed with `ERR_MODULE_NOT_FOUND`.
+- Type declarations were missing from the published package, so responses were typed as `any`.
+- `require('mxik')` didn't work despite being documented.
+- `vitepress` was installed as a runtime dependency.
+- Test files were published to npm.
+- `dvCert()` return type described a single item instead of an array.
 
-[compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.4...v1.1.5)
+## [1.1.7] - 2025-02-08
 
-### 🩹 Fixes
+### Fixed
 
-- **npm:** Dist issue ([b9c6562](https://github.com/azabroflovski/mxik/commit/b9c6562))
+- Build failure caused by a leftover Vite environment type import.
 
-### ❤️ Contributors
+## [1.1.6] - 2025-02-08
 
-- azabroflovski <azabroflovski@gmail.com>
+### Fixed
 
-## v1.1.4
+- Build output used path aliases that didn't resolve outside the project. Imports are now relative.
 
-[compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.3...v1.1.4)
+## [1.1.5] - 2025-02-08
 
-### 🚀 Enhancements
+### Fixed
 
-- Add create mxik client helper ([7d2f93c](https://github.com/azabroflovski/mxik/commit/7d2f93c))
-- **vitepress:** Add footer text ([15b6fcf](https://github.com/azabroflovski/mxik/commit/15b6fcf))
+- Published package was missing build output.
 
-### 💅 Refactors
+## [1.1.4] - 2025-01-26
 
-- Update docs ([8aefddd](https://github.com/azabroflovski/mxik/commit/8aefddd))
+### Added
 
-### 📖 Documentation
+- `createMxikClient()` helper.
+- API reference page in the documentation.
 
-- Add api references page ([143a5fc](https://github.com/azabroflovski/mxik/commit/143a5fc))
-- Update readme ([c643cfd](https://github.com/azabroflovski/mxik/commit/c643cfd))
+### Changed
 
-### ❤️ Contributors
+- Updated documentation and README.
+- Upgraded VitePress.
 
-- azabroflovski <azabroflovski@gmail.com>
+## [1.1.3] - 2024-07-21
 
-## v1.1.3
+### Added
 
-[compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.2...v1.1.3)
+- Documentation site built with VitePress and deployed to GitHub Pages.
 
-### 🚀 Enhancements
+## [1.1.2] - 2024-07-21
 
-- Add documentation (powered by vitepress) ([1e917e7](https://github.com/azabroflovski/mxik/commit/1e917e7))
+### Fixed
 
-### 🩹 Fixes
+- Type declaration files were missing from the package.
 
-- **deploy:** Use bun instead node (in ci) ([8c32c7f](https://github.com/azabroflovski/mxik/commit/8c32c7f))
-- **deploy:** Set vitepress base options (for correct assets path) ([bb62eb4](https://github.com/azabroflovski/mxik/commit/bb62eb4))
+## [1.1.1] - 2024-07-21
 
-### 🏡 Chore
+### Fixed
 
-- Configure docs ci/cd ([44c2f69](https://github.com/azabroflovski/mxik/commit/44c2f69))
+- Incorrect `files` paths in `package.json`.
 
-### ❤️ Contributors
+## [1.1.0] - 2024-07-21
 
-- azabroflovski <azabroflovski@gmail.com>
+### Changed
 
-## v1.1.2
+- Build with `tsc` instead of Vite.
 
-[compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.1...v1.1.2)
+## [1.0.0] - 2024-07-21
 
-### 🩹 Fixes
+Complete rewrite of the library.
 
-- **package:** D.ts file issue ([83e9b7d](https://github.com/azabroflovski/mxik/commit/83e9b7d))
+### Added
 
-### ❤️ Contributors
+- `MxikClient` with `search()`, `code()`, `brand()`, `barcode()`, `dvCert()` and `params()` methods.
+- `fetchByKeyword()`, `fetchByCode()`, `fetchByBrand()`, `fetchByBarcode()`, `fetchByDvCert()` and `fetchByParams()` functions.
+- Type definitions for API responses.
 
-- azabroflovski <azabroflovski@gmail.com>
+### Changed
 
-## v1.1.1
+- Migrated to Bun for development and testing.
 
-[compare changes](https://github.com/azabroflovski/mxik/compare/v1.1.0...v1.1.1)
+### Removed
 
-### 🩹 Fixes
+- The 0.x `MXIKSearch` API.
 
-- **package:** Correct files path ([067dd63](https://github.com/azabroflovski/mxik/commit/067dd63))
+## [0.4.6] - 2023-03-20
 
-### ❤️ Contributors
+### Changed
 
-- azabroflovski <azabroflovski@gmail.com>
+- Upgraded Vite to 4.2 and TypeScript to 5.0.
 
-## v1.1.0
+## [0.4.4] - 2022-09-22
 
-[compare changes](https://github.com/azabroflovski/mxik/compare/v1.0.0-alpha...v1.1.0)
+### Added
 
-### 🚀 Enhancements
+- Search by sub-positions ([#3](https://github.com/azabroflovski/mxik-js/pull/3)).
 
-- Build via tsc (instead vite) ([45fb5ed](https://github.com/azabroflovski/mxik/commit/45fb5ed))
+## [0.3.4] - 2022-06-24
 
-### ❤️ Contributors
+### Added
 
-- azabroflovski <azabroflovski@gmail.com>
+- Fetching MXIK code details.
 
-## v1.0.0
+### Fixed
 
-[compare changes](https://github.com/azabroflovski/mxik/compare/v1.0.0-alpha...v1.0.0)
+- Wrong `MXIKSearchSymbol` parameter name.
+- Environment variables weren't exposed because of a missing prefix.
 
-### 🏡 Chore
+## [0.2.2] - 2022-05-25
 
-- Add changelog ([95edf43](https://github.com/azabroflovski/mxik/commit/95edf43))
+### Added
 
-### ❤️ Contributors
+- Search by MXIK code ([#1](https://github.com/azabroflovski/mxik-js/pull/1), by [@aslbekkucharov](https://github.com/aslbekkucharov)).
 
-- azabroflovski <azabroflovski@gmail.com>
+## 0.0.1 - 2022-05-11
 
-### 🚀 Enhancements
+### Added
 
-- Add MXIKSearch interface ([6467364](https://github.com/azabroflovski/mxik/commit/6467364))
-- Add MXIK unknown exception ([b1b8465](https://github.com/azabroflovski/mxik/commit/b1b8465))
-- Add search by mxik code ([fef8ecf](https://github.com/azabroflovski/mxik/commit/fef8ecf))
-- **api:** Mxik details ([9a1e23d](https://github.com/azabroflovski/mxik/commit/9a1e23d))
-- Add search by subpositions ([#3](https://github.com/azabroflovski/mxik/pull/3))
-- Upgrade vite to ^4.2.0 ([f1ae601](https://github.com/azabroflovski/mxik/commit/f1ae601))
-- Upgrade typescript to ^5.0.2 ([8b04ea7](https://github.com/azabroflovski/mxik/commit/8b04ea7))
+- Initial release with the `MXIKSearch` interface and `MXIKUnknownException`.
 
-### 🩹 Fixes
-
-- **docs:** Wrong link to gov website ([8134e2e](https://github.com/azabroflovski/mxik/commit/8134e2e))
-- **env:** Add variable prefix for proper exposing ([e65cb4d](https://github.com/azabroflovski/mxik/commit/e65cb4d))
-- **api:** MXIKSearchSymbol param name ([b8da85c](https://github.com/azabroflovski/mxik/commit/b8da85c))
-
-### 💅 Refactors
-
-- **lib:** Add jsdoc to MXIKSearch ([caafb90](https://github.com/azabroflovski/mxik/commit/caafb90))
-
-### 📖 Documentation
-
-- Add readme ([a0ab9ba](https://github.com/azabroflovski/mxik/commit/a0ab9ba))
-- **readme:** Add MXIKSearchByCode api description ([7362142](https://github.com/azabroflovski/mxik/commit/7362142))
-- **readme:** Add examples ([4b9f49c](https://github.com/azabroflovski/mxik/commit/4b9f49c))
-
-### 🏡 Chore
-
-- Set library mode ([3f6e9d6](https://github.com/azabroflovski/mxik/commit/3f6e9d6))
-- Prepare to publish to npm ([c8c864d](https://github.com/azabroflovski/mxik/commit/c8c864d))
-- Setup env variables ([3d08f1b](https://github.com/azabroflovski/mxik/commit/3d08f1b))
-
-### ❤️  Contributors
-
-- azabroflovski <azabroflovski@gmail.com>
-- Aslbek Kucharov ([@aslbekkucharov](http://github.com/aslbekkucharov))
+[Unreleased]: https://github.com/azabroflovski/mxik-js/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/azabroflovski/mxik-js/compare/v1.1.7...v1.2.0
+[1.1.7]: https://github.com/azabroflovski/mxik-js/compare/v1.1.6...v1.1.7
+[1.1.6]: https://github.com/azabroflovski/mxik-js/compare/v1.1.5...v1.1.6
+[1.1.5]: https://github.com/azabroflovski/mxik-js/compare/v1.1.4...v1.1.5
+[1.1.4]: https://github.com/azabroflovski/mxik-js/compare/v1.1.3...v1.1.4
+[1.1.3]: https://github.com/azabroflovski/mxik-js/compare/v1.1.2...v1.1.3
+[1.1.2]: https://github.com/azabroflovski/mxik-js/compare/v1.1.1...v1.1.2
+[1.1.1]: https://github.com/azabroflovski/mxik-js/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/azabroflovski/mxik-js/compare/5e6e24f...v1.1.0
+[1.0.0]: https://github.com/azabroflovski/mxik-js/compare/v0.4.6...5e6e24f
+[0.4.6]: https://github.com/azabroflovski/mxik-js/compare/v0.4.4...v0.4.6
+[0.4.4]: https://github.com/azabroflovski/mxik-js/compare/v0.3.4...v0.4.4
+[0.3.4]: https://github.com/azabroflovski/mxik-js/compare/v0.2.2...v0.3.4
+[0.2.2]: https://github.com/azabroflovski/mxik-js/compare/v0.1.2...v0.2.2
