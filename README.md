@@ -2,9 +2,9 @@
 
 Typed JS/TS client for [tasnif.soliq.uz](https://tasnif.soliq.uz): search MXIK (IKPU) codes by keyword, barcode, brand or certificate.
 
-- Zero dependencies, ~2 kB gzipped
+- Zero dependencies, ~3 kB gzipped
 - ESM + CommonJS, works in Node 20+, Bun, Deno, browsers and edge runtimes
-- Unwrapped results, pagination, language, timeouts and `AbortSignal` support
+- Unwrapped results, pagination, language, timeouts, `AbortSignal` and optional caching
 
 📖 [Documentation](https://azabroflovski.github.io/mxik-js/)
 
@@ -37,6 +37,15 @@ await mxik.dvCert('UZ.123456')
 // Iterate over every result, pages are fetched lazily
 for await (const item of mxik.searchAll('кофе'))
   console.log(item.mxikCode, item.name)
+```
+
+### Cache
+
+Off by default. The catalog changes rarely, so caching saves a lot of requests:
+
+```ts
+const mxik = createMxik({ cache: true }) // in-memory, 1 hour TTL, 500 entries
+const mxik = createMxik({ cache: { ttl: 10 * 60 * 1000, max: 2000 } })
 ```
 
 ### Errors

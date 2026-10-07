@@ -1,3 +1,5 @@
+export { createMemoryCache } from './cache'
+export type { CacheEntry, CacheStore, MemoryCache } from './cache'
 export { createMxik } from './client'
 export type { Mxik } from './client'
 export { MxikError } from './http'

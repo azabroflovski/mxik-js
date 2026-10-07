@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Optional result caching: `createMxik({ cache: true })` or `cache: { ttl, max, store }`. Off by default. Successful results and "not found" are cached, errors are not.
+- `createMemoryCache()` in-memory LRU store, and `CacheStore` interface for custom stores such as `Map`, Redis or KV.
+
 ## [1.2.0] - 2026-10-07
 
 A new client API built around `createMxik()`. The 1.1 API keeps working and is deprecated. See the [migration guide](https://azabroflovski.github.io/mxik-js/guide/migration).

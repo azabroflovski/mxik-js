@@ -15,11 +15,11 @@ hero:
 features:
   - title: Zero dependencies
     icon: 🪶
-    details: About 2 kB gzipped, ESM and CommonJS.
+    details: About 3 kB gzipped, ESM and CommonJS.
   - title: Runs anywhere
     icon: 💪
     details: Node 20+, Bun, Deno, browsers and edge runtimes. Bring your own fetch if needed.
   - title: Fully typed
     icon: 🔑
-    details: Unwrapped results, pagination, timeouts and AbortSignal out of the box.
+    details: Unwrapped results, pagination, timeouts, AbortSignal and caching out of the box.
 ---
