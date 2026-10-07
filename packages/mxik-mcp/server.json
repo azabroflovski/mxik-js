@@ -1,0 +1,23 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.azabroflovski/mxik",
+  "title": "MXIK codes (Uzbekistan)",
+  "description": "Search MXIK (IKPU) product codes of Uzbekistan on tasnif.soliq.uz. Unofficial.",
+  "websiteUrl": "https://azabroflovski.github.io/mxik-js/guide/mcp",
+  "repository": {
+    "url": "https://github.com/azabroflovski/mxik-js",
+    "source": "github",
+    "subfolder": "packages/mxik-mcp"
+  },
+  "version": "0.1.1",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "mxik-mcp",
+      "version": "0.1.1",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
