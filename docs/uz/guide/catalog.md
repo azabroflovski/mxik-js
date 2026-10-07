@@ -31,6 +31,13 @@ Natijalar [qidiruvdagi](./searching#pages) kabi sahifalab keladi. Darajani nom b
 await mxik.children('00901001001', { text: 'jardin', size: 50 })
 ```
 
+Barcha sahifalarni aylanib chiqish uchun `childrenAll()`dan foydalaning:
+
+```ts
+for await (const brand of mxik.childrenAll('00901001001'))
+  console.log(brand.code, brand.name)
+```
+
 17 xonali kodning ostki darajasi yoʻq, boshqa uzunlikdagi kodlar esa yaroqsiz: ikkala holatda ham `children()` `TypeError` bilan rad etiladi.
 
 ## Maʼlumotnomalar {#reference-data}

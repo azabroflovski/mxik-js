@@ -44,6 +44,7 @@ console.log(items[0].mxikCode, items[0].name)
 | `card(code, options?)`         | `MxikCard \| null`            | Card with barcode, tax benefit and packages  |
 | `searchSubpositions(query)`    | `Page<CatalogItem>`           | Search by product type, without a brand      |
 | `children(code?, options?)`    | `Page<CatalogNode>`           | Next level of the catalog tree               |
+| `childrenAll(code?, options?)` | `AsyncGenerator<CatalogNode>` | Every child, pages fetched lazily            |
 | `stats()`, `units()`, `taxBenefits()` | `CatalogStats`, `Unit[]`, `TaxBenefit[]` | Reference data                |
 | `searchAll(query, options?)`   | `AsyncGenerator<SearchItem>`  | Every search result, pages fetched lazily    |
 | `filterAll(filters, options?)` | `AsyncGenerator<CatalogItem>` | Every filter result, pages fetched lazily    |
