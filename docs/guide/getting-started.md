@@ -175,6 +175,7 @@ Pass any object implementing `MxikCache`, a plain `Map` included:
 interface MxikCache {
   get: (key: string) => unknown // undefined on a miss
   set: (key: string, value: unknown) => unknown
+  delete: (key: string) => unknown
   clear: () => unknown // called by mxik.cache.clear()
 }
 ```
@@ -196,6 +197,10 @@ function createRedisCache(redis: Redis, ttl = 24 * 60 * 60 * 1000): MxikCache {
     async set(key, value) {
       await redis.set(prefix + key, JSON.stringify(value), 'PX', ttl)
       await redis.sadd(`${prefix}keys`, prefix + key)
+    },
+    async delete(key) {
+      await redis.del(prefix + key)
+      await redis.srem(`${prefix}keys`, prefix + key)
     },
     async clear() {
       const keys = await redis.smembers(`${prefix}keys`)

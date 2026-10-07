@@ -51,6 +51,7 @@ What `createMxik({ cache })` accepts. Methods may be async.
 interface MxikCache {
   get: (key: string) => unknown // undefined on a miss
   set: (key: string, value: unknown) => unknown
+  delete: (key: string) => unknown
   clear: () => unknown // called by mxik.cache.clear()
 }
 ```

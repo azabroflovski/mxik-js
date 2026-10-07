@@ -6,6 +6,7 @@ export interface MxikCache {
   /** Returns `undefined` on a miss. `null` is a valid cached value (code not found). */
   get: (key: string) => unknown
   set: (key: string, value: unknown) => unknown
+  delete: (key: string) => unknown
   /** Called by `mxik.cache.clear()`. A shared cache should remove only the client's entries. */
   clear: () => unknown
 }
