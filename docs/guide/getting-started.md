@@ -4,6 +4,14 @@ MXIK (ИКПУ) is the national catalogue of goods and services of Uzbekistan. I
 
 `mxik` calls the same API the site uses, so you can find codes from your own code: by keyword, barcode, brand or certificate number.
 
+::: info Not an official SDK
+The library isn't affiliated with the State Tax Committee of Uzbekistan or tasnif.soliq.uz. It uses the public API behind the site, which isn't documented and may change without notice. If a response suddenly looks different, [open an issue](https://github.com/azabroflovski/mxik-js/issues).
+:::
+
+::: warning Hosting outside Uzbekistan
+The API may not respond to servers outside Uzbekistan. Before deploying abroad, check that your server can reach `tasnif.soliq.uz`. If it can't, route requests through a proxy with the [`baseURL`](./options#proxy) option.
+:::
+
 ## Install
 
 ::: code-group
@@ -70,16 +78,6 @@ import { createMxik } from 'mxik'
 // or
 const { createMxik } = require('mxik')
 ```
-
-## Before you ship
-
-::: warning Not an official SDK
-The library isn't affiliated with the State Tax Committee of Uzbekistan or tasnif.soliq.uz. It uses the public API behind the site, which isn't documented and may change without notice. If a response suddenly looks different, [open an issue](https://github.com/azabroflovski/mxik-js/issues).
-:::
-
-::: warning Hosting outside Uzbekistan
-Requests from GitHub-hosted CI runners (USA) hang until they time out. Before deploying to a server outside Uzbekistan, check that it can reach `tasnif.soliq.uz`. If it can't, route requests through a proxy with the [`baseURL`](./options#proxy) option.
-:::
 
 ## Next steps
 
