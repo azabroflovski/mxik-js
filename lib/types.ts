@@ -228,7 +228,7 @@ export interface MxikCard {
   unitName: string | null
   commonUnitCode: string | null
   commonUnitName: string | null
-  /** Tax benefit id, see `benefits()`. */
+  /** Tax benefit id, see `taxBenefits()`. */
   lgotaId: number | null
   lgotaName: string | null
   /** International non-proprietary name, for medicines. */
@@ -256,8 +256,8 @@ export interface Unit {
   name: string
 }
 
-/** Tax benefit (льгота / imtiyoz), from `benefits()`. */
-export interface Benefit {
+/** Tax benefit (льгота / imtiyoz), from `taxBenefits()`. */
+export interface TaxBenefit {
   id: number
   nameRu: string
   nameUz: string

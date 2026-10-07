@@ -130,10 +130,10 @@ describe('references', () => {
     expect(query(calls[0])).toEqual({ pageNo: '0', pageSize: '1000', lang: 'uz' })
   })
 
-  test('benefits', async () => {
+  test('taxBenefits', async () => {
     const { fetch, calls } = mockFetch([{ id: 100407, nameLatn: 'PQ-1600' }])
 
-    expect(await createMxik({ fetch }).benefits()).toEqual([{ id: 100407, nameLatn: 'PQ-1600' }] as any)
+    expect(await createMxik({ fetch }).taxBenefits()).toEqual([{ id: 100407, nameLatn: 'PQ-1600' }] as any)
     expect(calls[0].url.pathname).toBe('/api/cls-api/integration-mxik/references/lgota')
   })
 })

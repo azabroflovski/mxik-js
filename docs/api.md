@@ -99,14 +99,14 @@ mxik.children(
 
 Groups when called without a code, otherwise the next level of the tree under `code`. Rejects with `TypeError` for codes without children. See [Tree](/guide/catalog#tree).
 
-## stats, units, benefits
+## stats, units, taxBenefits
 
 <!-- eslint-skip -->
 
 ```ts
 mxik.stats(options?: RequestOptions): Promise<CatalogStats>
 mxik.units(options?: RequestOptions): Promise<Unit[]>
-mxik.benefits(options?: RequestOptions): Promise<Benefit[]>
+mxik.taxBenefits(options?: RequestOptions): Promise<TaxBenefit[]>
 ```
 
 Catalog size, units of measurement and tax benefits. See [Reference data](/guide/catalog#reference-data).

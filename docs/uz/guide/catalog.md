@@ -42,10 +42,10 @@ await mxik.stats()
 await mxik.units()
 // [{ id: 111, name: 'карат' }, { id: 88, name: 'штук (пэт бутылка)' }, ...]
 
-await mxik.benefits()
+await mxik.taxBenefits()
 // [{ id: 100407, nameRu: '...', docNum: 1600, ... }]
 ```
 
 - `stats()`: katalogda nechta guruh, sinf, pozitsiya, subpozitsiya, brend va kod borligi.
 - `units()`: mijoz tilidagi oʻlchov birliklari.
-- `benefits()`: soliq imtiyozlari va ularni belgilovchi hujjatlar, rus, oʻzbek (kirill) va oʻzbek (lotin) tillarida. Kartochka imtiyozga `lgotaId` orqali bogʻlanadi.
+- `taxBenefits()`: soliq imtiyozlari va ularni belgilovchi hujjatlar, rus, oʻzbek (kirill) va oʻzbek (lotin) tillarida. Kartochka imtiyozga `lgotaId` orqali bogʻlanadi.

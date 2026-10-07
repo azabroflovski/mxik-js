@@ -92,11 +92,11 @@ describe('live API', () => {
   })
 
   test('references', async () => {
-    const [stats, units, benefits] = await Promise.all([mxik.stats(), mxik.units(), mxik.benefits()])
+    const [stats, units, taxBenefits] = await Promise.all([mxik.stats(), mxik.units(), mxik.taxBenefits()])
 
     expect(stats.mxikCount).toBeGreaterThan(100_000)
     expect(units.length).toBeGreaterThan(10)
-    expect(benefits.length).toBeGreaterThan(10)
+    expect(taxBenefits.length).toBeGreaterThan(10)
   })
 
   test('dvCert', async () => {

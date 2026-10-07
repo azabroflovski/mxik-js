@@ -99,14 +99,14 @@ mxik.children(
 
 Без кода возвращает группы, с кодом — следующий уровень дерева под ним. Для кодов без потомков отклоняется с `TypeError`. См. [Дерево](/ru/guide/catalog#tree).
 
-## stats, units, benefits
+## stats, units, taxBenefits
 
 <!-- eslint-skip -->
 
 ```ts
 mxik.stats(options?: RequestOptions): Promise<CatalogStats>
 mxik.units(options?: RequestOptions): Promise<Unit[]>
-mxik.benefits(options?: RequestOptions): Promise<Benefit[]>
+mxik.taxBenefits(options?: RequestOptions): Promise<TaxBenefit[]>
 ```
 
 Размер каталога, единицы измерения и льготы. См. [Справочники](/ru/guide/catalog#reference-data).
