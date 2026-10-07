@@ -2,7 +2,7 @@
 
 `mxik-mcp` — [MCP](https://modelcontextprotocol.io)-сервер: с ним Claude, Cursor и другие ИИ-ассистенты сами ищут коды ИКПУ. Спросите «найди ИКПУ по этому штрихкоду», и ассистент сам обратится к API.
 
-Это отдельный пакет, поэтому библиотека `mxik` остаётся без зависимостей.
+Это отдельный пакет, поэтому библиотека `mxik` остаётся без зависимостей. Сервер есть в официальном [MCP Registry](https://registry.modelcontextprotocol.io/v0/servers?search=io.github.azabroflovski/mxik) под именем `io.github.azabroflovski/mxik`.
 
 ## Подключение {#setup}
 

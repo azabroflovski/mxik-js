@@ -2,7 +2,7 @@
 
 MCP server for [tasnif.soliq.uz](https://tasnif.soliq.uz): lets Claude, Cursor and other AI assistants search MXIK (ИКПУ) codes, the national catalogue of goods and services of Uzbekistan.
 
-Unofficial, not affiliated with the Tax Committee of Uzbekistan or tasnif.soliq.uz. Built on the [`mxik`](https://www.npmjs.com/package/mxik) client.
+Unofficial, not affiliated with the Tax Committee of Uzbekistan or tasnif.soliq.uz. Built on the [`mxik`](https://www.npmjs.com/package/mxik) client. Listed in the [MCP Registry](https://registry.modelcontextprotocol.io/v0/servers?search=io.github.azabroflovski/mxik) as `io.github.azabroflovski/mxik`.
 
 ## Setup
 

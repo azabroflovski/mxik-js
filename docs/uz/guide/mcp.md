@@ -2,7 +2,7 @@
 
 `mxik-mcp` — [MCP](https://modelcontextprotocol.io) server: u bilan Claude, Cursor va boshqa AI yordamchilar MXIK kodlarini oʻzlari qidiradi. “Shu shtrix-kod uchun MXIK kodini top” deb soʻrang, yordamchi APIʼga oʻzi murojaat qiladi.
 
-Bu alohida paket, shuning uchun `mxik` kutubxonasi bogʻliqliklarsiz qoladi.
+Bu alohida paket, shuning uchun `mxik` kutubxonasi bogʻliqliklarsiz qoladi. Server rasmiy [MCP Registry](https://registry.modelcontextprotocol.io/v0/servers?search=io.github.azabroflovski/mxik)da `io.github.azabroflovski/mxik` nomi bilan roʻyxatdan oʻtgan.
 
 ## Ulash {#setup}
 

@@ -2,7 +2,7 @@
 
 `mxik-mcp` is an [MCP](https://modelcontextprotocol.io) server: it lets Claude, Cursor and other AI assistants search MXIK codes on their own. Ask "find the MXIK code for this barcode" and the assistant calls the API for you.
 
-It's a separate package, so the `mxik` library stays free of dependencies.
+It's a separate package, so the `mxik` library stays free of dependencies. It's listed in the official [MCP Registry](https://registry.modelcontextprotocol.io/v0/servers?search=io.github.azabroflovski/mxik) as `io.github.azabroflovski/mxik`.
 
 ## Setup
 
