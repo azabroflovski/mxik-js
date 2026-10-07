@@ -5,12 +5,12 @@
 [![bundle size](https://img.shields.io/bundlejs/size/mxik)](https://bundlejs.com/?q=mxik)
 [![license](https://img.shields.io/npm/l/mxik)](./LICENSE)
 
-Typed JavaScript client for [tasnif.soliq.uz](https://tasnif.soliq.uz), the Uzbekistan product classifier. Find MXIK (IKPU) codes by keyword, barcode, brand or certificate number.
+Typed JavaScript client for [tasnif.soliq.uz](https://tasnif.soliq.uz), the national catalogue of goods and services of Uzbekistan. Find MXIK (IKPU) codes by keyword, barcode, brand or certificate number.
 
 - Zero dependencies, about 3 kB gzipped
 - ESM and CommonJS, runs in Node 20+, Bun, Deno, browsers and edge runtimes
 - Returns plain data instead of raw API envelopes, with pagination, language selection, timeouts and `AbortSignal`
-- Optional caching: in memory out of the box, or bring your own (Redis, KV)
+- Optional cache, in memory or your own implementation (Redis, KV)
 
 [Documentation](https://azabroflovski.github.io/mxik-js/) · [API reference](https://azabroflovski.github.io/mxik-js/api) · [Changelog](./CHANGELOG.md)
 
@@ -92,7 +92,7 @@ createMxik({ cache: createMemoryCache({ ttl: 10 * 60 * 1000, max: 2000 }) })
 createMxik({ cache: new Map() }) // any MxikCache: get, set, delete, clear
 ```
 
-Successful results and "not found" are cached, errors are not. See [Cache](https://azabroflovski.github.io/mxik-js/guide/getting-started#cache) for a Redis example.
+Successful results and "not found" are cached, errors are not. See [Cache](https://azabroflovski.github.io/mxik-js/guide/cache) for a Redis example.
 
 ## Errors
 
@@ -115,6 +115,11 @@ catch (error) {
     console.log(error.status, error.reason)
 }
 ```
+
+## Good to know
+
+- This isn't an official SDK. It uses the public API behind tasnif.soliq.uz, which isn't documented and may change.
+- The API may not respond to servers outside Uzbekistan: requests from GitHub-hosted runners time out. Check connectivity before deploying, or use a proxy via `baseURL`.
 
 ## Migrating from 1.1
 

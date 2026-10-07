@@ -1,13 +1,13 @@
 # Migrating from 1.1
 
-Version 1.2 adds a new API built around `createMxik()`. The old `MxikClient`, `createMxikClient()` and `fetchBy*` functions keep working exactly as before, but are deprecated and will be removed in 2.0.
+Version 1.2 added a new API built around `createMxik()`. `MxikClient`, `createMxikClient()` and the `fetchBy*` functions still work exactly as before, but they're deprecated and will be removed in 2.0. Your editor marks them as deprecated and suggests the replacement.
 
 ## What changed
 
-- **Results are unwrapped.** Methods return the data itself or a `Page<T>`, not the raw `{ success, code, data }` envelope.
-- **Errors throw.** API errors throw `MxikError` instead of resolving with `success: false`.
-- **Pagination, language and page size are configurable.** The old API always returned the first 20 results in Russian.
-- **Codes are strings.** Numbers drop leading zeros, so `get()` accepts only strings.
+- **No envelopes.** Methods return the data or a `Page<T>`, not the raw `{ success, code, data }` response.
+- **Errors throw.** API errors throw `MxikError` instead of resolving with `success: false`. A missing code is `null`.
+- **Pages and language.** The old API always returned the first 20 results in Russian, now both are options.
+- **Codes are strings.** Numbers lose leading zeros, so `get()` accepts only strings.
 
 ## Method mapping
 
@@ -23,7 +23,7 @@ Version 1.2 adds a new API built around `createMxik()`. The old `MxikClient`, `c
 | `client.dvCert(number)`             | `mxik.dvCert(number)`                  |
 | `fetchByKeyword` … `fetchByDvCert`  | same methods on `createMxik()`         |
 
-## Before / after
+## Example
 
 ```ts
 // 1.1
@@ -56,4 +56,4 @@ console.log(page.items)
 | `ResponseSchemaWithContent` | `Page<T>`     |
 | `ResponseSchema`            | —             |
 
-All types are now real exports, import them with `import type { SearchItem } from 'mxik'`.
+Import types from the package: `import type { SearchItem } from 'mxik'`.
