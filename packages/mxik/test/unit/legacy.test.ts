@@ -13,7 +13,7 @@ describe('legacy API', () => {
   })
 
   test('MxikClient methods hit the same endpoints with the same params', async () => {
-    fetchSpy.mockImplementation(async () => Response.json(raw))
+    fetchSpy.mockImplementation((async () => Response.json(raw)) as unknown as typeof fetch)
     const client = createMxikClient()
     expect(client).toBeInstanceOf(MxikClient)
 

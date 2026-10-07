@@ -25,3 +25,7 @@ dist-ssr
 *.sw?
 
 docs/.vitepress/cache
+# Copied from the repo root by prepack
+packages/*/README.md
+packages/*/LICENSE
+!packages/mxik-mcp/README.md

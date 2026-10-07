@@ -199,10 +199,10 @@ class MxikError extends Error {
 
 Подключены прямо из исходного кода, поэтому всегда совпадают с опубликованным пакетом. Комментарии в них на английском.
 
-<<< @/../lib/types.ts
+<<< @/../packages/mxik/lib/types.ts
 
 ## Устаревшее {#deprecated}
 
 `MxikClient`, `createMxikClient()`, `fetchByKeyword()`, `fetchByParams()`, `fetchByBrand()`, `fetchByBarcode()`, `fetchByCode()` and `fetchByDvCert()` возвращают сырые ответы API и будут удалены в 2.0. См. [Переход с 1.1](/ru/guide/migration).
 
-<<< @/../lib/legacy/types.ts
+<<< @/../packages/mxik/lib/legacy/types.ts

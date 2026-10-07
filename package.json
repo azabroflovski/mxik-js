@@ -1,69 +1,23 @@
 {
-  "name": "mxik",
+  "name": "mxik-monorepo",
   "type": "module",
-  "version": "1.4.0",
-  "description": "Typed client for tasnif.soliq.uz: search MXIK (IKPU) codes by keyword, barcode, brand or certificate",
-  "author": {
-    "name": "Aza Broflovski",
-    "url": "https://github.com/azabroflovski",
-    "email": "azabroflovski@gmail.com"
-  },
-  "license": "MIT",
-  "homepage": "https://azabroflovski.github.io/mxik-js/",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/azabroflovski/mxik-js.git"
-  },
-  "bugs": {
-    "email": "azabroflovski@gmail.com",
-    "url": "https://github.com/azabroflovski/mxik-js/issues"
-  },
-  "keywords": [
-    "mxik",
-    "mxikjs",
-    "mxik-js",
-    "ikpu",
-    "tasnif.soliq.uz",
-    "soliq.uz",
-    "soliq"
+  "private": true,
+  "workspaces": [
+    "packages/*"
   ],
-  "sideEffects": false,
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    },
-    "./package.json": "./package.json"
-  },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.cts",
-  "files": [
-    "dist"
-  ],
-  "engines": {
-    "node": ">=20"
-  },
   "scripts": {
-    "build": "tsdown",
-    "dev": "tsdown --watch",
-    "typecheck": "tsc",
+    "build": "bun run --filter \"*\" build",
+    "typecheck": "bun run --filter \"*\" typecheck",
+    "test": "bun run --filter \"*\" test",
+    "test:live": "bun run --filter \"*\" test:live",
     "lint": "eslint .",
-    "test": "bun test test/unit",
-    "test:live": "bun test test/live",
-    "prepublishOnly": "bun run typecheck && bun run test && bun run build",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.5.1",
-    "@arethetypeswrong/core": "^0.18.5",
-    "@types/bun": "latest",
     "eslint": "^10.12.0",
-    "publint": "^0.3.25",
-    "tsdown": "^0.23.0",
-    "typescript": "^6",
     "vitepress": "^1.6.4"
   }
 }
