@@ -82,6 +82,7 @@ describe('client cache', () => {
       cache: {
         get: async (key: string) => map.has(key) ? JSON.parse(map.get(key)!) : undefined,
         set: async (key: string, value: unknown) => map.set(key, JSON.stringify(value)),
+        delete: async (key: string) => map.delete(key),
         clear: async () => map.clear(),
       },
     })
