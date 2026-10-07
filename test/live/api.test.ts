@@ -1,5 +1,6 @@
 // Smoke tests against the real tasnif.soliq.uz API.
 // They catch upstream changes, so they're not part of `bun run test`: run `bun run test:live`.
+// Run them locally: the API doesn't respond to GitHub-hosted runners, so they aren't in CI.
 import { describe, expect, test } from 'bun:test'
 import { createMxik, isMxikCode } from '../../lib'
 
