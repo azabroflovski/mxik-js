@@ -39,6 +39,9 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.cts",
+  "bin": {
+    "mxik": "./dist/cli.mjs"
+  },
   "files": [
     "dist"
   ],
