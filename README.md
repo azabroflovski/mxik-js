@@ -7,7 +7,7 @@
 
 Unofficial typed JavaScript client for [tasnif.soliq.uz](https://tasnif.soliq.uz), the national catalogue of goods and services of Uzbekistan. Find MXIK (IKPU) codes by keyword, barcode, brand or certificate number.
 
-Not affiliated with the State Tax Committee of Uzbekistan or tasnif.soliq.uz.
+Not affiliated with the Tax Committee of Uzbekistan or tasnif.soliq.uz.
 
 - Zero dependencies, about 3 kB gzipped
 - ESM and CommonJS, runs in Node 20+, Bun, Deno, browsers and edge runtimes
