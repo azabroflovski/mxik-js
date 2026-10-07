@@ -44,8 +44,11 @@ for await (const item of mxik.searchAll('кофе'))
 Off by default. The catalog changes rarely, so caching saves a lot of requests:
 
 ```ts
+import { createMemoryCache, createMxik } from 'mxik'
+
 const mxik = createMxik({ cache: true }) // in-memory, 1 hour TTL, 500 entries
-const mxik = createMxik({ cache: { ttl: 10 * 60 * 1000, max: 2000 } })
+const mxik = createMxik({ cache: createMemoryCache({ ttl: 10 * 60 * 1000, max: 2000 }) })
+const mxik = createMxik({ cache: myRedisCache }) // any MxikCache implementation
 
 await mxik.cache.clear()
 ```

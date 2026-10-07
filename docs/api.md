@@ -26,28 +26,32 @@ interface Mxik {
 
 ## `createMemoryCache(options?)`
 
-In-memory LRU store, evicts the least recently used entry once `max` is reached. `cache: true` uses it under the hood, create it yourself to share one store between several clients or to read its `size`.
+In-memory LRU cache with TTL. `cache: true` uses it with default options.
 
 ```ts
-function createMemoryCache(options?: { max?: number }): MemoryCache // max defaults to 500
+function createMemoryCache(options?: MemoryCacheOptions): MemoryCache
 
-interface MemoryCache extends CacheStore {
-  get: (key: string) => CacheEntry | undefined
+interface MemoryCacheOptions {
+  ttl?: number // ms, default 1 hour
+  max?: number // entries, default 500
+}
+
+interface MemoryCache extends MxikCache {
+  delete: (key: string) => void
+  clear: () => void
   readonly size: number
 }
 ```
 
-```ts
-interface CacheStore {
-  get: (key: string) => CacheEntry | undefined | Promise<CacheEntry | undefined>
-  set: (key: string, entry: CacheEntry) => unknown
-  delete: (key: string) => unknown // called for expired entries
-  clear: () => unknown // called by mxik.cache.clear()
-}
+## `MxikCache`
 
-interface CacheEntry {
-  value: unknown
-  expires: number // ms since epoch
+What `createMxik({ cache })` accepts. Methods may be async.
+
+```ts
+interface MxikCache {
+  get: (key: string) => unknown // undefined on a miss
+  set: (key: string, value: unknown) => unknown
+  clear: () => unknown // called by mxik.cache.clear()
 }
 ```
 

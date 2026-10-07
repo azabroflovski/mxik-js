@@ -1,10 +1,8 @@
-import type { CacheStore } from './cache'
+import type { MxikCache } from './cache'
 import type { Envelope, HttpConfig, Query, SpringPage } from './http'
 import type { CatalogItem, Filters, MxikDetails, MxikOptions, Page, PageOptions, RequestOptions, SearchItem } from './types'
 import { createMemoryCache } from './cache'
 import { buildURL, DEFAULT_BASE_URL, DEFAULT_TIMEOUT, MxikError, request } from './http'
-
-const DEFAULT_CACHE_TTL = 60 * 60 * 1000
 
 export interface Mxik {
   /** Full-text search over the catalog. */
@@ -48,14 +46,12 @@ export function createMxik(options: MxikOptions = {}): Mxik {
       return parse(await request<Envelope<T>>(http, path, query, signal))
 
     const key = buildURL(http.baseURL, path, query)
-    const hit = await cache.store.get(key)
-    if (hit && hit.expires > Date.now())
-      return hit.value as R
-    if (hit)
-      await cache.store.delete(key)
+    const hit = await cache.get(key)
+    if (hit !== undefined)
+      return hit as R
 
     const value = parse(await request<Envelope<T>>(http, path, query, signal))
-    await cache.store.set(key, { value, expires: Date.now() + cache.ttl })
+    await cache.set(key, value)
     return value
   }
 
@@ -121,17 +117,16 @@ export function createMxik(options: MxikOptions = {}): Mxik {
     dvCert,
     cache: {
       async clear() {
-        await cache?.store.clear()
+        await cache?.clear()
       },
     },
   }
 }
 
-function resolveCache(option: MxikOptions['cache']): { store: CacheStore, ttl: number } | undefined {
-  if (!option)
-    return undefined
-  const { ttl = DEFAULT_CACHE_TTL, max, store = createMemoryCache({ max }) } = option === true ? {} : option
-  return { store, ttl }
+function resolveCache(option: MxikOptions['cache']): MxikCache | undefined {
+  if (option === true)
+    return createMemoryCache()
+  return option || undefined
 }
 
 async function* paginate<T>(fetchPage: (page: number) => Promise<Page<T>>): AsyncGenerator<T> {
