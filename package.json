@@ -1,7 +1,7 @@
 {
   "name": "mxik",
   "type": "module",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Typed client for tasnif.soliq.uz: search MXIK (IKPU) codes by keyword, barcode, brand or certificate",
   "author": {
     "name": "Aza Broflovski",

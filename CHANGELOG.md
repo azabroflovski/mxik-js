@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-10-07
+
 ### Added
 
 - `card(code)`: card of a code with barcode, short name, tax benefit and packages, from the endpoint the site uses now. Returns `null` for unknown codes.
@@ -174,7 +176,8 @@ Complete rewrite of the library.
 
 - Initial release with the `MXIKSearch` interface and `MXIKUnknownException`.
 
-[Unreleased]: https://github.com/azabroflovski/mxik-js/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/azabroflovski/mxik-js/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/azabroflovski/mxik-js/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/azabroflovski/mxik-js/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/azabroflovski/mxik-js/compare/v1.1.7...v1.2.0
 [1.1.7]: https://github.com/azabroflovski/mxik-js/compare/v1.1.6...v1.1.7
