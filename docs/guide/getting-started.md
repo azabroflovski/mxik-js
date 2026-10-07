@@ -134,14 +134,16 @@ Off by default. The catalog changes rarely, so caching is worth enabling for any
 const mxik = createMxik({ cache: true })
 ```
 
-This uses an in-memory store with 1 hour TTL that keeps up to 500 results and evicts the least recently used. Tune it:
+This uses an in-memory cache with 1 hour TTL that keeps up to 500 results and evicts the least recently used. To tune it, pass the memory cache yourself:
 
 ```ts
+import { createMemoryCache, createMxik } from 'mxik'
+
 const mxik = createMxik({
-  cache: {
+  cache: createMemoryCache({
     ttl: 10 * 60 * 1000, // 10 minutes
     max: 2000,
-  },
+  }),
 })
 ```
 
@@ -165,33 +167,44 @@ await mxik.cache.clear()
 
 Does nothing when caching is off, so it's safe to call unconditionally.
 
-### Custom store
+### Custom cache
 
-Any object with `get`, `set`, `delete` and `clear` works, a plain `Map` included. Methods may be async, so Redis or a KV store fit too.
-
-| Method              | Called when                                    |
-| ------------------- | ---------------------------------------------- |
-| `get(key)`          | before every request                           |
-| `set(key, entry)`   | after a successful request                     |
-| `delete(key)`       | an expired entry is found                      |
-| `clear()`           | `mxik.cache.clear()` is called                 |
-
-The client stores `{ value, expires }` entries and checks `expires` itself, so a store doesn't need its own TTL. If the store is shared with other data, `clear()` should remove only the client's entries. With Redis, keeping everything in one hash makes that a single command:
+Pass any object implementing `MxikCache`, a plain `Map` included:
 
 ```ts
-const KEY = 'mxik:cache'
+interface MxikCache {
+  get: (key: string) => unknown // undefined on a miss
+  set: (key: string, value: unknown) => unknown
+  clear: () => unknown // called by mxik.cache.clear()
+}
+```
 
-const mxik = createMxik({
-  cache: {
-    ttl: 24 * 60 * 60 * 1000,
-    store: {
-      get: async key => JSON.parse(await redis.hget(KEY, key) ?? 'null') ?? undefined,
-      set: (key, entry) => redis.hset(KEY, key, JSON.stringify(entry)),
-      delete: key => redis.hdel(KEY, key),
-      clear: () => redis.del(KEY),
+Methods may be async, and expiration is up to the implementation. `null` is a valid value (code not found), only `undefined` means a miss. If the cache is shared with other data, `clear()` should remove only the client's entries.
+
+Redis example: values go into separate keys with a prefix so Redis expires them itself, and a set of keys makes `clear()` precise:
+
+```ts
+import type { MxikCache } from 'mxik'
+
+function createRedisCache(redis: Redis, ttl = 24 * 60 * 60 * 1000): MxikCache {
+  const prefix = 'mxik:'
+  return {
+    async get(key) {
+      const raw = await redis.get(prefix + key)
+      return raw === null ? undefined : JSON.parse(raw)
     },
-  },
-})
+    async set(key, value) {
+      await redis.set(prefix + key, JSON.stringify(value), 'PX', ttl)
+      await redis.sadd(`${prefix}keys`, prefix + key)
+    },
+    async clear() {
+      const keys = await redis.smembers(`${prefix}keys`)
+      await redis.del(`${prefix}keys`, ...keys)
+    },
+  }
+}
+
+const mxik = createMxik({ cache: createRedisCache(redis) })
 ```
 
 ## Errors

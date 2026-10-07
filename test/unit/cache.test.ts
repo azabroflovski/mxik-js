@@ -1,4 +1,3 @@
-import type { CacheEntry } from '../../lib'
 import { afterEach, describe, expect, setSystemTime, test } from 'bun:test'
 import { createMemoryCache, createMxik } from '../../lib'
 
@@ -13,9 +12,9 @@ function mockFetch(...bodies: unknown[]) {
 
 const found = { success: true, code: 200, reason: 'success', data: [{ mxikCode: '1' }], recordTotal: 1 }
 
-describe('client cache', () => {
-  afterEach(() => setSystemTime())
+afterEach(() => setSystemTime())
 
+describe('client cache', () => {
   test('is off by default', async () => {
     const { fetch, urls } = mockFetch(found)
     const mxik = createMxik({ fetch })
@@ -64,42 +63,28 @@ describe('client cache', () => {
     expect(urls).toHaveLength(2)
   })
 
-  test('expires after ttl', async () => {
+  test('accepts a custom implementation, a plain Map included', async () => {
     const { fetch, urls } = mockFetch(found)
-    const mxik = createMxik({ fetch, cache: { ttl: 1000 } })
-
-    setSystemTime(new Date('2026-01-01T00:00:00Z'))
-    await mxik.search('x')
-    setSystemTime(new Date('2026-01-01T00:00:00.999Z'))
-    await mxik.search('x')
-    expect(urls).toHaveLength(1)
-
-    setSystemTime(new Date('2026-01-01T00:00:01Z'))
-    await mxik.search('x')
-    expect(urls).toHaveLength(2)
-  })
-
-  test('works with a Map', async () => {
-    const { fetch, urls } = mockFetch(found)
-    const store = new Map<string, CacheEntry>()
-    const mxik = createMxik({ fetch, cache: { store } })
+    const cache = new Map<string, unknown>()
+    const mxik = createMxik({ fetch, cache })
     await mxik.search('x')
     await mxik.search('x')
 
     expect(urls).toHaveLength(1)
-    expect([...store.keys()]).toEqual(['https://tasnif.soliq.uz/api/cls-api/elasticsearch/search?search=x&page=0&size=20&lang=ru'])
+    expect([...cache.keys()]).toEqual(['https://tasnif.soliq.uz/api/cls-api/elasticsearch/search?search=x&page=0&size=20&lang=ru'])
   })
 
-  test('works with an async store', async () => {
+  test('works with an async implementation', async () => {
     const { fetch, urls } = mockFetch(found)
     const map = new Map<string, string>()
-    const store = {
-      get: async (key: string) => map.has(key) ? JSON.parse(map.get(key)!) as CacheEntry : undefined,
-      set: async (key: string, entry: CacheEntry) => map.set(key, JSON.stringify(entry)),
-      delete: async (key: string) => map.delete(key),
-      clear: async () => map.clear(),
-    }
-    const mxik = createMxik({ fetch, cache: { store } })
+    const mxik = createMxik({
+      fetch,
+      cache: {
+        get: async (key: string) => map.has(key) ? JSON.parse(map.get(key)!) : undefined,
+        set: async (key: string, value: unknown) => map.set(key, JSON.stringify(value)),
+        clear: async () => map.clear(),
+      },
+    })
     await mxik.search('x')
     const cached = await mxik.search('x')
 
@@ -108,15 +93,6 @@ describe('client cache', () => {
 
     await mxik.cache.clear()
     expect(map.size).toBe(0)
-  })
-
-  test('deletes expired entries from the store', async () => {
-    const { fetch } = mockFetch({ success: false, code: 500, reason: 'boom', data: null })
-    const store = new Map<string, CacheEntry>([['https://tasnif.soliq.uz/api/cls-api/integration-mxik/get/history/1', { value: null, expires: 0 }]])
-    const mxik = createMxik({ fetch, cache: { store } })
-
-    await expect(mxik.get('1')).rejects.toThrow('boom')
-    expect(store.size).toBe(0)
   })
 
   test('mxik.cache.clear() drops cached results', async () => {
@@ -133,51 +109,69 @@ describe('client cache', () => {
     const { fetch } = mockFetch(found)
     expect(await createMxik({ fetch }).cache.clear()).toBeUndefined()
   })
+
+  test('respects ttl of the memory cache', async () => {
+    const { fetch, urls } = mockFetch(found)
+    const mxik = createMxik({ fetch, cache: createMemoryCache({ ttl: 1000 }) })
+
+    setSystemTime(new Date('2026-01-01T00:00:00Z'))
+    await mxik.search('x')
+    setSystemTime(new Date('2026-01-01T00:00:00.999Z'))
+    await mxik.search('x')
+    expect(urls).toHaveLength(1)
+
+    setSystemTime(new Date('2026-01-01T00:00:01Z'))
+    await mxik.search('x')
+    expect(urls).toHaveLength(2)
+  })
 })
 
 describe('createMemoryCache', () => {
-  const entry = (value: unknown): CacheEntry => ({ value, expires: Infinity })
-
   test('evicts the least recently used entry', () => {
     const cache = createMemoryCache({ max: 2 })
-    cache.set('a', entry(1))
-    cache.set('b', entry(2))
+    cache.set('a', 1)
+    cache.set('b', 2)
     cache.get('a')
-    cache.set('c', entry(3))
+    cache.set('c', 3)
 
     expect(cache.size).toBe(2)
-    expect(cache.get('a')?.value).toBe(1)
+    expect(cache.get('a')).toBe(1)
     expect(cache.get('b')).toBeUndefined()
-    expect(cache.get('c')?.value).toBe(3)
+    expect(cache.get('c')).toBe(3)
+  })
+
+  test('drops expired entries on read', () => {
+    const cache = createMemoryCache({ ttl: 1000 })
+    setSystemTime(new Date('2026-01-01T00:00:00Z'))
+    cache.set('a', 1)
+    setSystemTime(new Date('2026-01-01T00:00:01Z'))
+
+    expect(cache.get('a')).toBeUndefined()
+    expect(cache.size).toBe(0)
+  })
+
+  test('stores null as a value', () => {
+    const cache = createMemoryCache()
+    cache.set('a', null)
+    expect(cache.get('a')).toBeNull()
   })
 
   test('overwriting a key doesn\'t grow the cache', () => {
     const cache = createMemoryCache({ max: 2 })
-    cache.set('a', entry(1))
-    cache.set('a', entry(2))
+    cache.set('a', 1)
+    cache.set('a', 2)
 
     expect(cache.size).toBe(1)
-    expect(cache.get('a')?.value).toBe(2)
+    expect(cache.get('a')).toBe(2)
   })
 
-  test('clear and delete', () => {
+  test('delete and clear', () => {
     const cache = createMemoryCache()
-    cache.set('a', entry(1))
-    cache.set('b', entry(2))
+    cache.set('a', 1)
+    cache.set('b', 2)
     cache.delete('a')
     expect(cache.size).toBe(1)
     cache.clear()
     expect(cache.size).toBe(0)
-  })
-
-  test('can be cleared through the client store', async () => {
-    const { fetch, urls } = mockFetch(found)
-    const cache = createMemoryCache()
-    const mxik = createMxik({ fetch, cache: { store: cache } })
-    await mxik.search('x')
-    cache.clear()
-    await mxik.search('x')
-
-    expect(urls).toHaveLength(2)
   })
 })
