@@ -22,7 +22,7 @@ features:
   - title: Tiplangan natijalar
     details: Xom javoblar oʻrniga elementlar va sahifalar. Mavjud boʻlmagan kod uchun null, API xatolari uchun MxikError.
   - title: Bogʻliqliklarsiz
-    details: Gzipʼda taxminan 3 kB. ESM va CJS, Node 20+, Bun, Deno, brauzerlar.
+    details: Gzipʼda taxminan 4 kB. ESM va CJS, Node 20+, Bun, Deno, brauzerlar.
   - title: Kesh
     details: Ixtiyoriy. Xotiradagi LRU yoki Redis, KV yoxud Map asosidagi oʻzingizniki.
 ---

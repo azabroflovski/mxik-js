@@ -9,7 +9,7 @@ Unofficial typed JavaScript client for [tasnif.soliq.uz](https://tasnif.soliq.uz
 
 Not affiliated with the Tax Committee of Uzbekistan or tasnif.soliq.uz.
 
-- Zero dependencies, about 3 kB gzipped
+- Zero dependencies, about 4 kB gzipped
 - ESM and CommonJS, runs in Node 20+, Bun, Deno, browsers and edge runtimes
 - Returns plain data instead of raw API envelopes, with pagination, language selection, timeouts and `AbortSignal`
 - Optional cache, in memory or your own implementation (Redis, KV)
@@ -40,7 +40,11 @@ console.log(items[0].mxikCode, items[0].name)
 | `search(query, options?)`      | `Page<SearchItem>`            | Full-text search over the catalog            |
 | `get(code, options?)`          | `MxikDetails \| null`         | Full card of a code, `null` if not found     |
 | `filter(filters, options?)`    | `Page<CatalogItem>`           | Search by `text`, `brand`, `code`, `barcode` |
-| `dvCert(number, options?)`     | `Page<CatalogItem>`           | Codes linked to a DV certificate             |
+| `dvCert(number, options?)`     | `Page<CatalogItem>`           | Codes linked to a certificate number         |
+| `card(code, options?)`         | `MxikCard \| null`            | Card with barcode, tax benefit and packages  |
+| `searchSubpositions(query)`    | `Page<CatalogItem>`           | Search by product type, without a brand      |
+| `children(code?, options?)`    | `Page<CatalogNode>`           | Next level of the catalog tree               |
+| `stats()`, `units()`, `benefits()` | `CatalogStats`, `Unit[]`, `Benefit[]` | Reference data                |
 | `searchAll(query, options?)`   | `AsyncGenerator<SearchItem>`  | Every search result, pages fetched lazily    |
 | `filterAll(filters, options?)` | `AsyncGenerator<CatalogItem>` | Every filter result, pages fetched lazily    |
 | `cache.clear()`                | `Promise<void>`               | Drop cached results                          |

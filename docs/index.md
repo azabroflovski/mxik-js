@@ -22,7 +22,7 @@ features:
   - title: Typed results
     details: Items and pages instead of raw responses. null for unknown codes, MxikError for API errors.
   - title: Zero dependencies
-    details: About 3 kB gzipped. ESM and CJS, Node 20+, Bun, Deno, browsers.
+    details: About 4 kB gzipped. ESM and CJS, Node 20+, Bun, Deno, browsers.
   - title: Cache
     details: Optional. In-memory LRU, or your own on Redis, KV or a Map.
 ---

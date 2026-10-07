@@ -1,14 +1,15 @@
 # Qidiruv
 
-Kodlarni toʻrt usulda topish mumkin, yana bittasi bilan alohida kodni olish mumkin:
+| Metod                       | Sizda nima bor                            |
+| --------------------------- | ----------------------------------------- |
+| `search(query)`             | Matn: mahsulot nomi, soʻz, kod            |
+| `filter({ brand })`         | Brend nomi                                |
+| `filter({ barcode })`       | Qadoqdagi shtrix-kod                      |
+| `searchSubpositions(query)` | Mahsulot turi, brendsiz                   |
+| `dvCert(number)`            | Sertifikat raqami                         |
+| `card(code)`, `get(code)`   | Aniq 17 xonali kod                        |
 
-| Metod                 | Sizda nima bor                           |
-| --------------------- | ---------------------------------------- |
-| `search(query)`       | Matn: mahsulot nomi, soʻz, kod           |
-| `filter({ brand })`   | Brend nomi                               |
-| `filter({ barcode })` | Qadoqdagi shtrix-kod                     |
-| `dvCert(number)`      | Sertifikat raqami                        |
-| `get(code)`           | Aniq 17 xonali kod                       |
+Katalogni darajama-daraja koʻrish uchun [Katalog](./catalog) boʻlimiga qarang.
 
 ## Matn boʻyicha {#by-keyword}
 
@@ -39,6 +40,16 @@ await mxik.filter({ text: 'vacuum', brand: 'Xiaomi' })
 `barcode` ustuvor: u berilsa, API qolgan filtrlarni hisobga olmaydi.
 :::
 
+## Mahsulot turi boʻyicha {#by-product-type}
+
+```ts
+const page = await mxik.searchSubpositions('кофе')
+page.items[0].mxikCode // '00901001004000000'
+page.items[0].mxikName // 'Сублимированный кофе'
+```
+
+Subpozitsiyalarni topadi: mahsulot turining brendsiz umumiy kodlarini. Muayyan mahsulot emas, “maydalangan kofe” kodi kerak boʻlganda qulay. Elementlar tipi — [`CatalogItem`](/uz/api#types).
+
 ## Sertifikat raqami boʻyicha {#by-certificate-number}
 
 ```ts
@@ -49,16 +60,33 @@ Sertifikatga bogʻliq kodlarni [`CatalogItem`](/uz/api#types) koʻrinishida qayt
 
 ## Alohida kod {#a-single-code}
 
+Kodni ikki usulda olish mumkin. Kod mavjud boʻlmasa, ikkalasi ham `null` qaytaradi.
+
+`card()` saytda koʻrsatiladigan kartochkani qaytaradi: bitta tildagi nomlar, shtrix-kod, qisqa nom, imtiyoz va oʻlchov birliklari bilan qadoqlar.
+
+```ts
+const card = await mxik.card('00901001001048023')
+
+card?.mxikName // 'Молотый (порошкообразный) кофе: Maccoffee, в пакет 3в1 20г'
+card?.shortName // 'Молот. (порошко.) кофе Maccoffee в пак. 3в1 20г'
+card?.internationalCode // '8887290101004'
+card?.packages?.[0].name // 'шт. (пачка) 20 грамм'
+```
+
+`get()` nomlarni bir vaqtda rus va oʻzbek tillarida qaytaradi, lekin maydonlari kamroq:
+
 ```ts
 const details = await mxik.get('00901001001048023')
 
-if (details) {
-  details.subPositionNameRu // 'Молотый (порошкообразный) кофе'
-  details.packageNames // qadoq birliklari, masalan 'шт. (пачка) 20 грамм'
-}
+details?.subPositionNameRu // 'Молотый (порошкообразный) кофе'
+details?.subPositionNameUz // 'Майдаланган (кукунсимон) кофе'
 ```
 
-Rus va oʻzbek tillaridagi nomlar bilan [`MxikDetails`](/uz/api#types) qaytaradi, kod mavjud boʻlmasa `null`.
+Barcha maydonlar [`MxikCard`](/uz/api#types) va [`MxikDetails`](/uz/api#types) tiplarida.
+
+::: warning Diqqat
+Sayt endi `get()` va `dvCert()` ishlaydigan endpointlardan foydalanmaydi. Hozircha ular javob beradi, lekin ogohlantirishsiz oʻchirilishi mumkin. Yangi kodda `card()`dan foydalangan maʼqul.
+:::
 
 Kodlar boshida nollar boʻladi, shuning uchun ularni satr sifatida saqlang. Soʻrovdan oldin formatni tekshirish uchun `isMxikCode()`dan foydalaning:
 

@@ -82,6 +82,7 @@ const { createMxik } = require('mxik')
 ## Keyingi qadamlar {#next-steps}
 
 - [Qidiruv](./searching): barcha qidiruv usullari, sahifalar va tillar.
+- [Katalog](./catalog): kodlar daraxti, oʻlchov birliklari va imtiyozlar.
 - [Mijoz sozlamalari](./options): taymautlar, proksi, oʻz `fetch`ʼingiz.
 - [Kesh](./cache): bir xil soʻrovlarni takrorlamaslik.
 - [Xatolar](./errors): nima notoʻgʻri ketishi mumkin va holatlarni qanday farqlash.

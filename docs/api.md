@@ -60,6 +60,57 @@ mxik.dvCert(
 
 Codes linked to a certificate number. See [By certificate number](/guide/searching#by-certificate-number).
 
+## card
+
+<!-- eslint-skip -->
+
+```ts
+mxik.card(
+  code: string,
+  options?: RequestOptions,
+): Promise<MxikCard | null>
+```
+
+Card of a code with names in one language, barcode, short name, tax benefit and packages, or `null` if it doesn't exist. See [A single code](/guide/searching#a-single-code).
+
+## searchSubpositions
+
+<!-- eslint-skip -->
+
+```ts
+mxik.searchSubpositions(
+  query: string,
+  options?: PageOptions,
+): Promise<Page<CatalogItem>>
+```
+
+Search by product type, returns sub-position codes without a brand. See [By product type](/guide/searching#by-product-type).
+
+## children
+
+<!-- eslint-skip -->
+
+```ts
+mxik.children(
+  code?: string,
+  options?: ChildrenOptions,
+): Promise<Page<CatalogNode>>
+```
+
+Groups when called without a code, otherwise the next level of the tree under `code`. Rejects with `TypeError` for codes without children. See [Tree](/guide/catalog#tree).
+
+## stats, units, benefits
+
+<!-- eslint-skip -->
+
+```ts
+mxik.stats(options?: RequestOptions): Promise<CatalogStats>
+mxik.units(options?: RequestOptions): Promise<Unit[]>
+mxik.benefits(options?: RequestOptions): Promise<Benefit[]>
+```
+
+Catalog size, units of measurement and tax benefits. See [Reference data](/guide/catalog#reference-data).
+
 ## searchAll, filterAll
 
 <!-- eslint-skip -->

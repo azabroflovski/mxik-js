@@ -44,6 +44,9 @@ Verified against the live API, the code depends on them:
 - `page` is 0-based in the API, the client exposes 1-based pages.
 - `size` up to at least 500 works.
 - The API doesn't respond to GitHub-hosted runners (requests hang), so live tests are not in CI.
+- As of 2026-10, the site's own frontend no longer calls `get/history` (`get()`) or `dv-cert-number` (`dvCert()`); they still work but may disappear. The site's card endpoint is `/mxik/get/by-mxik` (`card()`): no envelope, one language, unknown code = HTTP 403 "MXIK ma'lumotlari topilmadi".
+- Catalog tree endpoints (`children()`): `/group`, `/class/short-info?groupCode`, `/position/short-info?classCode`, `/subposition/short-info?positionCode`, `/brand/short-info?subPositionCode` (text filter param `branchName`), `/brand/short-info-attribute?brandCode` (text filter `name`). They return `{ success, data: [], recordTotal }`, page is 0-based.
+- To find new endpoints, read the site bundle (`https://tasnif.soliq.uz/assets/index-*.js` and its lazy chunks) and grep for request paths; probe only read-only GETs.
 
 ## Design decisions
 

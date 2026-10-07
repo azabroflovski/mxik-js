@@ -82,6 +82,7 @@ const { createMxik } = require('mxik')
 ## Next steps
 
 - [Searching](./searching): all lookup methods, pagination and languages.
+- [Catalog](./catalog): browse the code tree, units and tax benefits.
 - [Client options](./options): timeouts, proxies, custom `fetch`.
 - [Cache](./cache): skip repeated requests.
 - [Errors](./errors): what can go wrong and how to tell the cases apart.
