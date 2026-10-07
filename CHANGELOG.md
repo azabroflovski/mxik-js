@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Optional result caching: `createMxik({ cache: true })` or `cache: { ttl, max, store }`. Off by default. Successful results and "not found" are cached, errors are not.
-- `createMemoryCache()` in-memory LRU store, and `CacheStore` interface for custom stores such as `Map`, Redis or KV.
+- `mxik.cache.clear()` to drop cached results.
+- `createMemoryCache()` in-memory LRU store, and `CacheStore` interface (`get`, `set`, `delete`, `clear`) for custom stores such as `Map`, Redis or KV.
 
 ## [1.2.0] - 2026-10-07
 

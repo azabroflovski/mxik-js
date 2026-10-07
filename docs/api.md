@@ -18,19 +18,21 @@ interface Mxik {
   filter: (filters: Filters, options?: PageOptions) => Promise<Page<CatalogItem>>
   filterAll: (filters: Filters, options?: Omit<PageOptions, 'page'>) => AsyncGenerator<CatalogItem>
   dvCert: (certNumber: string, options?: PageOptions) => Promise<Page<CatalogItem>>
+  cache: {
+    clear: () => Promise<void> // no-op when caching is off
+  }
 }
 ```
 
 ## `createMemoryCache(options?)`
 
-In-memory LRU store for `createMxik({ cache: { store } })`. Evicts the least recently used entry once `max` is reached.
+In-memory LRU store, evicts the least recently used entry once `max` is reached. `cache: true` uses it under the hood, create it yourself to share one store between several clients or to read its `size`.
 
 ```ts
 function createMemoryCache(options?: { max?: number }): MemoryCache // max defaults to 500
 
 interface MemoryCache extends CacheStore {
   get: (key: string) => CacheEntry | undefined
-  clear: () => void
   readonly size: number
 }
 ```
@@ -39,7 +41,8 @@ interface MemoryCache extends CacheStore {
 interface CacheStore {
   get: (key: string) => CacheEntry | undefined | Promise<CacheEntry | undefined>
   set: (key: string, entry: CacheEntry) => unknown
-  delete: (key: string) => unknown
+  delete: (key: string) => unknown // called for expired entries
+  clear: () => unknown // called by mxik.cache.clear()
 }
 
 interface CacheEntry {
