@@ -13,6 +13,8 @@ interface Labels {
   catalog: string
   cache: string
   errors: string
+  cli: string
+  mcp: string
   api: string
   migration: string
   changelog: string
@@ -41,6 +43,8 @@ function themeConfig(prefix: string, t: Labels): DefaultTheme.Config {
           { text: t.options, link: `${prefix}/guide/options` },
           { text: t.cache, link: `${prefix}/guide/cache` },
           { text: t.errors, link: `${prefix}/guide/errors` },
+          { text: t.cli, link: `${prefix}/guide/cli` },
+          { text: t.mcp, link: `${prefix}/guide/mcp` },
         ],
       },
       {
@@ -75,6 +79,8 @@ export default defineConfig({
           options: 'Client options',
           cache: 'Cache',
           errors: 'Errors',
+          cli: 'CLI',
+          mcp: 'MCP server',
           api: 'API reference',
           migration: 'Migrating from 1.1',
           changelog: 'Changelog',
@@ -101,6 +107,8 @@ export default defineConfig({
           options: 'Настройки клиента',
           cache: 'Кеш',
           errors: 'Ошибки',
+          cli: 'CLI',
+          mcp: 'MCP-сервер',
           api: 'Справочник API',
           migration: 'Переход с 1.1',
           changelog: 'Список изменений',
@@ -142,6 +150,8 @@ export default defineConfig({
           options: 'Mijoz sozlamalari',
           cache: 'Kesh',
           errors: 'Xatolar',
+          cli: 'CLI',
+          mcp: 'MCP server',
           api: 'API maʼlumotnomasi',
           migration: '1.1 versiyadan oʻtish',
           changelog: 'Oʻzgarishlar roʻyxati',

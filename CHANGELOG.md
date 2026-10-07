@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `childrenAll(code?)`: iterate over every child of a catalog node, fetching pages lazily.
+- `mxik` command-line tool: `npx mxik search кофе`. Commands `search`, `filter`, `subpositions`, `card`, `get`, `children`, `stats`, `units` and `tax-benefits`, with `--lang`, `--page`, `--size` and `--json`.
+- CLI and MCP server pages in the documentation. The MCP server is published separately as `mxik-mcp`.
 
 ## [1.4.0] - 2026-10-07
 

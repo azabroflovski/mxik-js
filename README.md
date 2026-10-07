@@ -123,6 +123,26 @@ catch (error) {
 }
 ```
 
+## CLI
+
+```sh
+npx mxik search кофе
+npx mxik filter --barcode 6934177746536
+npx mxik card 00901001001048023 --json
+```
+
+See [CLI](https://azabroflovski.github.io/mxik-js/guide/cli) for all commands.
+
+## MCP server
+
+[`mxik-mcp`](https://github.com/azabroflovski/mxik-js/tree/master/packages/mxik-mcp) lets Claude, Cursor and other AI assistants search codes:
+
+```sh
+claude mcp add mxik -- npx -y mxik-mcp
+```
+
+See [MCP server](https://azabroflovski.github.io/mxik-js/guide/mcp) for other clients.
+
 ## Good to know
 
 - It uses the public API behind tasnif.soliq.uz, which isn't documented and may change.

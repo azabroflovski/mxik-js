@@ -6,12 +6,14 @@ This project is developed with Claude Code.
 
 ## Commands
 
+Run from the repo root, they go through every workspace package:
+
 ```sh
-bun run lint        # eslint (@antfu/eslint-config), --fix to autoformat
+bun run lint        # eslint (@antfu/eslint-config) over the whole repo, --fix to autoformat
 bun run typecheck   # tsc, no emit
 bun run test        # unit tests on mocked fetch, fast
 bun run test:live   # smoke tests against the real API, run locally only
-bun run build       # tsdown: ESM + CJS + bundled d.ts, runs publint and attw
+bun run build       # tsdown, runs publint (and attw for mxik)
 bun run docs:dev    # VitePress
 ```
 
@@ -19,12 +21,17 @@ Before committing: lint, typecheck, test, build must all pass. CI (`.github/work
 
 ## Layout
 
+Bun workspaces monorepo. The root package is private (lint, docs).
+
+- `packages/mxik/`: the library and the `mxik` CLI, zero runtime dependencies. Paths below are relative to it.
+- `packages/mxik-mcp/`: MCP server (`@modelcontextprotocol/sdk`, `zod`), depends on `mxik` by semver range (not `workspace:`), because the maintainer publishes with `npm publish`. Its `tsconfig` maps `mxik` to `../mxik/lib/index.ts` for typecheck and tests. Has its own README and CHANGELOG.
 - `lib/index.ts`: public exports, keep in sync with docs
 - `lib/client.ts`: `createMxik()`, all request methods go through `load()` (request, parse envelope, cache)
 - `lib/http.ts`: `request()`, `buildURL()`, `MxikError`, API envelope types
 - `lib/cache.ts`: `MxikCache` interface, `createMemoryCache()`
 - `lib/types.ts`: public types (options, `Page`, `Filters`, items)
 - `lib/utils.ts`: `isMxikCode()`
+- `lib/cli/run.ts`: CLI logic, `run(argv, io)` with injected client and output for tests; `lib/cli/index.ts` is the bin. Built as a separate node-only entry `dist/cli.mjs`.
 - `lib/legacy/`: deprecated 1.1 API (`MxikClient`, `createMxikClient`, `fetchBy*`) and its types
 - `test/unit/`: bun:test, inject `fetch` via `createMxik({ fetch })`; `test/live/`: real API
 - `docs/`: VitePress in three locales: English at the root, Russian in `docs/ru/`, Uzbek (Latin) in `docs/uz/`, same page structure in each. `guide/` has getting-started, searching, options, cache, errors, migration; `api.md` pulls types straight from `lib/types.ts` and `lib/legacy/types.ts`. Code examples use real API values (e.g. `00901001001048023`, Maccoffee), verify new ones against the live API
@@ -74,10 +81,11 @@ Verified against the live API, the code depends on them:
 2. Bump `version` in `package.json`, commit `chore(release): vX.Y.Z`.
 3. Merge the PR, tag `vX.Y.Z` on master, push the tag.
 4. `gh release create vX.Y.Z --verify-tag` with the CHANGELOG section as notes.
-5. `npm publish` is done by the maintainer, not by Claude. `prepublishOnly` runs typecheck, tests and build.
+5. `npm publish` is done by the maintainer, not by Claude, from `packages/mxik` (and `packages/mxik-mcp`, after `mxik`). `prepack` copies README/LICENSE from the root, `prepublishOnly` runs typecheck, tests and build.
+6. `mxik-mcp` is versioned separately: its own CHANGELOG, tags `mxik-mcp@X.Y.Z`. Bump its `mxik` range when it starts using new library features.
 
 ## Ideas not done yet
 
-- CLI (`npx mxik search ...`) and an MCP server, as separate packages.
 - Per-request cache bypass, invalidating cache for a specific call.
 - Removing the legacy API in 2.0.
+- Moving `get()` onto `/mxik/get/by-mxik` (two requests, ru and uz) if `get/history` disappears; not before, since `id`, `createdAt`, `isActive` would be lost.

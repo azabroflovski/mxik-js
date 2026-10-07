@@ -86,3 +86,4 @@ const { createMxik } = require('mxik')
 - [Mijoz sozlamalari](./options): taymautlar, proksi, oʻz `fetch`ʼingiz.
 - [Kesh](./cache): bir xil soʻrovlarni takrorlamaslik.
 - [Xatolar](./errors): nima notoʻgʻri ketishi mumkin va holatlarni qanday farqlash.
+- [CLI](./cli) va [MCP server](./mcp): kodlarni terminaldan yoki AI yordamchidan qidirish.

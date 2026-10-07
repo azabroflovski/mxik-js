@@ -86,3 +86,4 @@ const { createMxik } = require('mxik')
 - [Client options](./options): timeouts, proxies, custom `fetch`.
 - [Cache](./cache): skip repeated requests.
 - [Errors](./errors): what can go wrong and how to tell the cases apart.
+- [CLI](./cli) and [MCP server](./mcp): search codes from the terminal or from an AI assistant.
