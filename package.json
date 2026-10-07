@@ -1,38 +1,23 @@
 {
   "name": "mxik",
+  "type": "module",
   "version": "1.1.7",
+  "description": "Typed client for tasnif.soliq.uz: search MXIK (IKPU) codes by keyword, barcode, brand or certificate",
   "author": {
     "name": "Aza Broflovski",
     "url": "https://github.com/azabroflovski",
     "email": "azabroflovski@gmail.com"
   },
+  "license": "MIT",
+  "homepage": "https://azabroflovski.github.io/mxik-js/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/azabroflovski/mxik.git"
-  },
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "devDependencies": {
-    "@antfu/eslint-config": "^2.23.1",
-    "@types/bun": "latest",
-    "eslint": "^9.7.0",
-    "typescript": "^5.5.3"
-  },
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
-    }
+    "url": "git+https://github.com/azabroflovski/mxik-js.git"
   },
   "bugs": {
     "email": "azabroflovski@gmail.com",
-    "url": "https://github.com/azabroflovski/mxik/issues"
+    "url": "https://github.com/azabroflovski/mxik-js/issues"
   },
-  "description": "API client over tasnif.soliq.uz for finding mxik codes (written in TypeScript)",
-  "files": [
-    "dist",
-    "lib/**/*.d.ts"
-  ],
   "keywords": [
     "mxik",
     "mxikjs",
@@ -42,17 +27,43 @@
     "soliq.uz",
     "soliq"
   ],
-  "private": false,
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.cts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
-    "build": "bun test && tsc",
-    "test": "bun test",
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc",
+    "lint": "eslint .",
+    "test": "bun test test/unit",
+    "test:live": "bun test test/live",
+    "prepublishOnly": "bun run typecheck && bun run test && bun run build",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
   },
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "dependencies": {
-    "vitepress": "^1.6.3"
+  "devDependencies": {
+    "@antfu/eslint-config": "^9.5.1",
+    "@arethetypeswrong/core": "^0.18.5",
+    "@types/bun": "latest",
+    "eslint": "^10.12.0",
+    "publint": "^0.3.25",
+    "tsdown": "^0.23.0",
+    "typescript": "^6",
+    "vitepress": "^1.6.4"
   }
 }
