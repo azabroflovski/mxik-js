@@ -1,6 +1,6 @@
 import type { MxikCache } from './cache'
 import type { Envelope, HttpConfig, ListEnvelope, Query, SpringPage } from './http'
-import type { Benefit, CatalogItem, CatalogNode, CatalogStats, ChildrenOptions, Filters, MxikCard, MxikDetails, MxikOptions, Page, PageOptions, RequestOptions, SearchItem, Unit } from './types'
+import type { CatalogItem, CatalogNode, CatalogStats, ChildrenOptions, Filters, MxikCard, MxikDetails, MxikOptions, Page, PageOptions, RequestOptions, SearchItem, TaxBenefit, Unit } from './types'
 import { createMemoryCache } from './cache'
 import { buildURL, DEFAULT_BASE_URL, DEFAULT_TIMEOUT, MxikError, request } from './http'
 
@@ -46,7 +46,7 @@ export interface Mxik {
   /** Units of measurement. */
   units: (options?: RequestOptions) => Promise<Unit[]>
   /** Tax benefits referenced by `lgotaId`. */
-  benefits: (options?: RequestOptions) => Promise<Benefit[]>
+  taxBenefits: (options?: RequestOptions) => Promise<TaxBenefit[]>
   cache: {
     /** Removes all cached results. Does nothing when caching is off. */
     clear: () => Promise<void>
@@ -211,8 +211,8 @@ export function createMxik(options: MxikOptions = {}): Mxik {
     })
   }
 
-  function benefits(opts: RequestOptions = {}): Promise<Benefit[]> {
-    return load<Benefit[], Benefit[]>('/integration-mxik/references/lgota', {}, opts.signal, (body) => {
+  function taxBenefits(opts: RequestOptions = {}): Promise<TaxBenefit[]> {
+    return load<TaxBenefit[], TaxBenefit[]>('/integration-mxik/references/lgota', {}, opts.signal, (body) => {
       if (!Array.isArray(body))
         throw new MxikError('Unexpected response', 200)
       return body
@@ -231,7 +231,7 @@ export function createMxik(options: MxikOptions = {}): Mxik {
     children,
     stats,
     units,
-    benefits,
+    taxBenefits,
     cache: {
       async clear() {
         await cache?.clear()

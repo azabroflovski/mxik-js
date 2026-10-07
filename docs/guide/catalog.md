@@ -42,10 +42,10 @@ await mxik.stats()
 await mxik.units()
 // [{ id: 111, name: 'карат' }, { id: 88, name: 'штук (пэт бутылка)' }, ...]
 
-await mxik.benefits()
+await mxik.taxBenefits()
 // [{ id: 100407, nameRu: '...', docNum: 1600, ... }]
 ```
 
 - `stats()`: how many groups, classes, positions, sub-positions, brands and codes the catalog has.
 - `units()`: units of measurement, in the client language.
-- `benefits()`: tax benefits with the documents that grant them, in Russian, Uzbek Cyrillic and Uzbek Latin. A card links to one through `lgotaId`.
+- `taxBenefits()`: tax taxBenefits with the documents that grant them, in Russian, Uzbek Cyrillic and Uzbek Latin. A card links to one through `lgotaId`.

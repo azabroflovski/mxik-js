@@ -99,14 +99,14 @@ mxik.children(
 
 Kodsiz chaqirilsa guruhlarni, kod bilan esa uning ostidagi keyingi daraja elementlarini qaytaradi. Ostki darajasi yoʻq kodlar uchun `TypeError` bilan rad etiladi. Qarang: [Daraxt](/uz/guide/catalog#tree).
 
-## stats, units, benefits
+## stats, units, taxBenefits
 
 <!-- eslint-skip -->
 
 ```ts
 mxik.stats(options?: RequestOptions): Promise<CatalogStats>
 mxik.units(options?: RequestOptions): Promise<Unit[]>
-mxik.benefits(options?: RequestOptions): Promise<Benefit[]>
+mxik.taxBenefits(options?: RequestOptions): Promise<TaxBenefit[]>
 ```
 
 Katalog hajmi, oʻlchov birliklari va imtiyozlar. Qarang: [Maʼlumotnomalar](/uz/guide/catalog#reference-data).
