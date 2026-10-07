@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: mxik
-  text: MXIK codes from JavaScript
-  tagline: A typed client for tasnif.soliq.uz, the national catalogue of goods and services of Uzbekistan.
+  text: Uzbekistan product codes from JavaScript
+  tagline: An unofficial typed client for tasnif.soliq.uz, the MXIK (ИКПУ) catalogue of goods and services.
   actions:
     - theme: brand
       text: Get started

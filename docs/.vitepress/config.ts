@@ -55,7 +55,7 @@ export default defineConfig({
     ],
 
     footer: {
-      message: 'Released under the MIT License.',
+      message: 'Unofficial client, not affiliated with the State Tax Committee of Uzbekistan or tasnif.soliq.uz.<br>Released under the MIT License.',
       copyright: 'Copyright © 2022-present azabroflovski',
     },
   },
