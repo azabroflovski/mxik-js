@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-10-07
+
 ### Added
 
 - Optional result caching, off by default: `createMxik({ cache: true })` or `createMxik({ cache: implementation })`. Successful results and "not found" are cached, errors are not.
@@ -159,7 +161,8 @@ Complete rewrite of the library.
 
 - Initial release with the `MXIKSearch` interface and `MXIKUnknownException`.
 
-[Unreleased]: https://github.com/azabroflovski/mxik-js/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/azabroflovski/mxik-js/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/azabroflovski/mxik-js/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/azabroflovski/mxik-js/compare/v1.1.7...v1.2.0
 [1.1.7]: https://github.com/azabroflovski/mxik-js/compare/v1.1.6...v1.1.7
 [1.1.6]: https://github.com/azabroflovski/mxik-js/compare/v1.1.5...v1.1.6
