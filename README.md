@@ -46,6 +46,8 @@ Off by default. The catalog changes rarely, so caching saves a lot of requests:
 ```ts
 const mxik = createMxik({ cache: true }) // in-memory, 1 hour TTL, 500 entries
 const mxik = createMxik({ cache: { ttl: 10 * 60 * 1000, max: 2000 } })
+
+await mxik.cache.clear()
 ```
 
 ### Errors

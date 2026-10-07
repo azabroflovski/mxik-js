@@ -97,6 +97,7 @@ describe('client cache', () => {
       get: async (key: string) => map.has(key) ? JSON.parse(map.get(key)!) as CacheEntry : undefined,
       set: async (key: string, entry: CacheEntry) => map.set(key, JSON.stringify(entry)),
       delete: async (key: string) => map.delete(key),
+      clear: async () => map.clear(),
     }
     const mxik = createMxik({ fetch, cache: { store } })
     await mxik.search('x')
@@ -104,6 +105,33 @@ describe('client cache', () => {
 
     expect(urls).toHaveLength(1)
     expect(cached.items).toEqual(found.data as any)
+
+    await mxik.cache.clear()
+    expect(map.size).toBe(0)
+  })
+
+  test('deletes expired entries from the store', async () => {
+    const { fetch } = mockFetch({ success: false, code: 500, reason: 'boom', data: null })
+    const store = new Map<string, CacheEntry>([['https://tasnif.soliq.uz/api/cls-api/integration-mxik/get/history/1', { value: null, expires: 0 }]])
+    const mxik = createMxik({ fetch, cache: { store } })
+
+    await expect(mxik.get('1')).rejects.toThrow('boom')
+    expect(store.size).toBe(0)
+  })
+
+  test('mxik.cache.clear() drops cached results', async () => {
+    const { fetch, urls } = mockFetch(found)
+    const mxik = createMxik({ fetch, cache: true })
+    await mxik.search('x')
+    await mxik.cache.clear()
+    await mxik.search('x')
+
+    expect(urls).toHaveLength(2)
+  })
+
+  test('mxik.cache.clear() is a no-op when caching is off', async () => {
+    const { fetch } = mockFetch(found)
+    expect(await createMxik({ fetch }).cache.clear()).toBeUndefined()
   })
 })
 

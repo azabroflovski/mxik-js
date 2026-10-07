@@ -19,6 +19,10 @@ export interface Mxik {
   filterAll: (filters: Filters, options?: Omit<PageOptions, 'page'>) => AsyncGenerator<CatalogItem>
   /** Codes linked to a DV (conformity) certificate number. */
   dvCert: (certNumber: string, options?: PageOptions) => Promise<Page<CatalogItem>>
+  cache: {
+    /** Removes all cached results. Does nothing when caching is off. */
+    clear: () => Promise<void>
+  }
 }
 
 /**
@@ -47,6 +51,8 @@ export function createMxik(options: MxikOptions = {}): Mxik {
     const hit = await cache.store.get(key)
     if (hit && hit.expires > Date.now())
       return hit.value as R
+    if (hit)
+      await cache.store.delete(key)
 
     const value = parse(await request<Envelope<T>>(http, path, query, signal))
     await cache.store.set(key, { value, expires: Date.now() + cache.ttl })
@@ -113,6 +119,11 @@ export function createMxik(options: MxikOptions = {}): Mxik {
     filter,
     filterAll: (filters, opts) => paginate(page => filter(filters, { ...opts, page })),
     dvCert,
+    cache: {
+      async clear() {
+        await cache?.store.clear()
+      },
+    },
   }
 }
 

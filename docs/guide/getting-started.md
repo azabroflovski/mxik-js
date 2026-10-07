@@ -159,35 +159,40 @@ Cached results are shared objects. Don't mutate them, or the next call will retu
 
 ### Clearing
 
-Create the store yourself to keep a handle on it:
-
 ```ts
-import { createMemoryCache, createMxik } from 'mxik'
-
-const cache = createMemoryCache({ max: 1000 })
-const mxik = createMxik({ cache: { store: cache } })
-
-cache.clear()
+await mxik.cache.clear()
 ```
+
+Does nothing when caching is off, so it's safe to call unconditionally.
 
 ### Custom store
 
-Any object with `get`, `set` and `delete` works, a plain `Map` included. Methods may be async, so Redis or a KV store fit too:
+Any object with `get`, `set`, `delete` and `clear` works, a plain `Map` included. Methods may be async, so Redis or a KV store fit too.
+
+| Method              | Called when                                    |
+| ------------------- | ---------------------------------------------- |
+| `get(key)`          | before every request                           |
+| `set(key, entry)`   | after a successful request                     |
+| `delete(key)`       | an expired entry is found                      |
+| `clear()`           | `mxik.cache.clear()` is called                 |
+
+The client stores `{ value, expires }` entries and checks `expires` itself, so a store doesn't need its own TTL. If the store is shared with other data, `clear()` should remove only the client's entries. With Redis, keeping everything in one hash makes that a single command:
 
 ```ts
+const KEY = 'mxik:cache'
+
 const mxik = createMxik({
   cache: {
     ttl: 24 * 60 * 60 * 1000,
     store: {
-      get: async key => JSON.parse(await redis.get(key) ?? 'null') ?? undefined,
-      set: (key, entry) => redis.set(key, JSON.stringify(entry), 'PX', entry.expires - Date.now()),
-      delete: key => redis.del(key),
+      get: async key => JSON.parse(await redis.hget(KEY, key) ?? 'null') ?? undefined,
+      set: (key, entry) => redis.hset(KEY, key, JSON.stringify(entry)),
+      delete: key => redis.hdel(KEY, key),
+      clear: () => redis.del(KEY),
     },
   },
 })
 ```
-
-The client stores `{ value, expires }` entries and checks `expires` itself, setting a TTL in the store is optional.
 
 ## Errors
 

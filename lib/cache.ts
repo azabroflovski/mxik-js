@@ -11,7 +11,10 @@ export interface CacheEntry {
 export interface CacheStore {
   get: (key: string) => CacheEntry | undefined | Promise<CacheEntry | undefined>
   set: (key: string, entry: CacheEntry) => unknown
+  /** Called for expired entries. */
   delete: (key: string) => unknown
+  /** Called by `mxik.cache.clear()`. A shared store should remove only the client's entries. */
+  clear: () => unknown
 }
 
 export interface MemoryCache extends CacheStore {
@@ -22,11 +25,12 @@ export interface MemoryCache extends CacheStore {
 
 /**
  * In-memory LRU store: once `max` entries is reached, the least recently used one is evicted.
+ * `cache: true` uses it under the hood, create it yourself to share one store between clients.
  *
  * @example
- * const cache = createMemoryCache({ max: 1000 })
- * const mxik = createMxik({ cache: { store: cache } })
- * cache.clear()
+ * const store = createMemoryCache({ max: 1000 })
+ * const ru = createMxik({ lang: 'ru', cache: { store } })
+ * const uz = createMxik({ lang: 'uz', cache: { store } })
  */
 export function createMemoryCache({ max = 500 }: { max?: number } = {}): MemoryCache {
   const entries = new Map<string, CacheEntry>()
