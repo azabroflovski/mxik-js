@@ -13,7 +13,7 @@ export class MxikError extends Error {
     message: string,
     /** HTTP status of the response. */
     public status: number,
-    /** `reason` field from the API envelope, if any. */
+    /** `reason` from the API envelope, or the body of an HTTP error response. */
     public reason?: string,
     options?: ErrorOptions,
   ) {
@@ -36,6 +36,14 @@ export interface Envelope<T> {
   code: number
   reason: string
   data: T | null
+  recordTotal?: number
+}
+
+/** Envelope of the catalog tree endpoints: a plain list plus `recordTotal`. */
+export interface ListEnvelope<T> {
+  success: boolean
+  reason: string | null
+  data: T[] | null
   recordTotal?: number
 }
 
@@ -67,8 +75,10 @@ export async function request<T>(config: HttpConfig, path: string, query: Query 
     signal: signals.length ? AbortSignal.any(signals) : undefined,
   })
 
-  if (!response.ok)
-    throw new MxikError(`HTTP ${response.status} ${response.statusText}`.trim(), response.status)
+  if (!response.ok) {
+    const body = await response.text().then(text => text.trim().slice(0, 500), () => '')
+    throw new MxikError(`HTTP ${response.status} ${response.statusText}`.trim(), response.status, body || undefined)
+  }
 
   try {
     return await response.json() as T

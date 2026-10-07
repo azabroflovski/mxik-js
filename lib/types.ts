@@ -164,3 +164,109 @@ export interface MxikDetails {
   status: number
   packageNames: MxikPackage[]
 }
+
+export interface ChildrenOptions extends PageOptions {
+  /** Filter children by name. */
+  text?: string
+}
+
+/** One entry of the catalog tree: a group, class, position, sub-position, brand or code. */
+export interface CatalogNode {
+  /**
+   * 3 digits for a group, then 5 for a class, 8 for a position,
+   * 11 for a sub-position, 14 for a brand and 17 for a code.
+   */
+  code: string
+  /** `null` for the "no brand" entry of a sub-position. */
+  name: string | null
+  /** Number of codes under this node. */
+  count: number
+  /** Barcode (GTIN), only on 17-digit codes. */
+  internationalCode?: string | null
+}
+
+export interface MxikCardPackage {
+  code: number
+  parentCode: number | null
+  mxikCode: string
+  /** Package name, e.g. `шт. (пачка) 20 грамм`. */
+  name: string
+  unitId: number | null
+  unitName: string | null
+  /** Amount of `unitName` in the package. */
+  parentValue: number | null
+  containerCode: number | null
+  containerName: string | null
+  type: string
+  isUnitPackage: string
+  /** `dd.MM.yyyy HH:mm:ss` */
+  createdAt: string
+  createdBy: string | null
+  children: MxikCardPackage[]
+}
+
+/** Card of a single code from `card()`, names in the requested language. */
+export interface MxikCard {
+  mxikCode: string
+  mxikName: string
+  /** Abbreviated name. */
+  shortName: string | null
+  groupCode: string
+  groupName: string
+  classCode: string
+  className: string
+  positionCode: string
+  positionName: string
+  subPositionCode: string
+  subPositionName: string
+  brandCode: string
+  brandName: string | null
+  attributeName: string | null
+  /** Barcode (GTIN). */
+  internationalCode: string | null
+  unitCode: string | null
+  unitName: string | null
+  commonUnitCode: string | null
+  commonUnitName: string | null
+  /** Tax benefit id, see `benefits()`. */
+  lgotaId: number | null
+  lgotaName: string | null
+  /** International non-proprietary name, for medicines. */
+  mnnName: string | null
+  label: number
+  useCard: number
+  myProduct: number
+  units: unknown
+  packages: MxikCardPackage[] | null
+}
+
+/** Size of the catalog, from `stats()`. */
+export interface CatalogStats {
+  groupCount: number
+  classCount: number
+  positionCount: number
+  subPositionCount: number
+  brandCount: number
+  mxikCount: number
+}
+
+/** Unit of measurement, from `units()`. */
+export interface Unit {
+  id: number
+  name: string
+}
+
+/** Tax benefit (льгота / imtiyoz), from `benefits()`. */
+export interface Benefit {
+  id: number
+  nameRu: string
+  nameUz: string
+  nameLatn: string
+  docNum: number
+  /** Document date, ms since epoch. */
+  docDate: number
+  docNameRu: string
+  docNameUz: string
+  docNameLatn: string
+  oldId: number | null
+}
