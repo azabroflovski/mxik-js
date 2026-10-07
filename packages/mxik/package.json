@@ -1,0 +1,64 @@
+{
+  "name": "mxik",
+  "type": "module",
+  "version": "1.4.0",
+  "description": "Typed client for tasnif.soliq.uz: search MXIK (IKPU) codes by keyword, barcode, brand or certificate",
+  "author": {
+    "name": "Aza Broflovski",
+    "url": "https://github.com/azabroflovski",
+    "email": "azabroflovski@gmail.com"
+  },
+  "license": "MIT",
+  "homepage": "https://azabroflovski.github.io/mxik-js/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azabroflovski/mxik-js.git",
+    "directory": "packages/mxik"
+  },
+  "bugs": {
+    "email": "azabroflovski@gmail.com",
+    "url": "https://github.com/azabroflovski/mxik-js/issues"
+  },
+  "keywords": [
+    "mxik",
+    "mxikjs",
+    "mxik-js",
+    "ikpu",
+    "tasnif.soliq.uz",
+    "soliq.uz",
+    "soliq"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.cts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc",
+    "test": "bun test test/unit",
+    "test:live": "bun test test/live",
+    "prepack": "cp ../../README.md ../../LICENSE .",
+    "prepublishOnly": "bun run typecheck && bun run test && bun run build"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/core": "^0.18.5",
+    "@types/bun": "^1.4.2",
+    "publint": "^0.3.25",
+    "tsdown": "^0.23.0",
+    "typescript": "^6"
+  }
+}

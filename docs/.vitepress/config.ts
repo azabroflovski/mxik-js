@@ -1,6 +1,6 @@
 import type { DefaultTheme } from 'vitepress'
 import { defineConfig } from 'vitepress'
-import pkg from '../../package.json' with { type: 'json' }
+import pkg from '../../packages/mxik/package.json' with { type: 'json' }
 
 const repo = 'https://github.com/azabroflovski/mxik-js'
 

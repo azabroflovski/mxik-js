@@ -199,10 +199,10 @@ Thrown when the API returns an error or a response that isn't JSON. See [Errors]
 
 Included from the source code, so they always match the published package.
 
-<<< @/../lib/types.ts
+<<< @/../packages/mxik/lib/types.ts
 
 ## Deprecated
 
 `MxikClient`, `createMxikClient()`, `fetchByKeyword()`, `fetchByParams()`, `fetchByBrand()`, `fetchByBarcode()`, `fetchByCode()` and `fetchByDvCert()` return raw API responses and will be removed in 2.0. See [Migrating from 1.1](/guide/migration).
 
-<<< @/../lib/legacy/types.ts
+<<< @/../packages/mxik/lib/legacy/types.ts

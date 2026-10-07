@@ -199,10 +199,10 @@ API xato yoki JSON boʻlmagan javob qaytarganda chiqariladi. Qarang: [Xatolar](/
 
 Toʻgʻridan-toʻgʻri manba koddan olingan, shuning uchun har doim chop etilgan paketga mos keladi. Ulardagi izohlar ingliz tilida.
 
-<<< @/../lib/types.ts
+<<< @/../packages/mxik/lib/types.ts
 
 ## Eskirgan {#deprecated}
 
 `MxikClient`, `createMxikClient()`, `fetchByKeyword()`, `fetchByParams()`, `fetchByBrand()`, `fetchByBarcode()`, `fetchByCode()` and `fetchByDvCert()` xom API javoblarini qaytaradi va 2.0 versiyada olib tashlanadi. Qarang: [1.1 versiyadan oʻtish](/uz/guide/migration).
 
-<<< @/../lib/legacy/types.ts
+<<< @/../packages/mxik/lib/legacy/types.ts
