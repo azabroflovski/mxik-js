@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-10-07
+
 ### Added
 
 - `childrenAll(code?)`: iterate over every child of a catalog node, fetching pages lazily.
@@ -182,7 +184,8 @@ Complete rewrite of the library.
 
 - Initial release with the `MXIKSearch` interface and `MXIKUnknownException`.
 
-[Unreleased]: https://github.com/azabroflovski/mxik-js/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/azabroflovski/mxik-js/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/azabroflovski/mxik-js/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/azabroflovski/mxik-js/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/azabroflovski/mxik-js/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/azabroflovski/mxik-js/compare/v1.1.7...v1.2.0
