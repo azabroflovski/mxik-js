@@ -22,7 +22,7 @@ features:
   - title: Типизированные результаты
     details: Элементы и страницы вместо сырых ответов. null для несуществующего кода, MxikError для ошибок API.
   - title: Без зависимостей
-    details: Около 3 kB в gzip. ESM и CJS, Node 20+, Bun, Deno, браузеры.
+    details: Около 4 kB в gzip. ESM и CJS, Node 20+, Bun, Deno, браузеры.
   - title: Кеш
     details: По желанию. LRU в памяти или свой на Redis, KV или Map.
 ---

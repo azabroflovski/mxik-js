@@ -60,6 +60,57 @@ mxik.dvCert(
 
 Коды, связанные с номером сертификата. См. [По номеру сертификата](/ru/guide/searching#by-certificate-number).
 
+## card
+
+<!-- eslint-skip -->
+
+```ts
+mxik.card(
+  code: string,
+  options?: RequestOptions,
+): Promise<MxikCard | null>
+```
+
+Карточка кода с названиями на одном языке, штрихкодом, кратким названием, льготой и упаковками или `null`, если кода не существует. См. [Отдельный код](/ru/guide/searching#a-single-code).
+
+## searchSubpositions
+
+<!-- eslint-skip -->
+
+```ts
+mxik.searchSubpositions(
+  query: string,
+  options?: PageOptions,
+): Promise<Page<CatalogItem>>
+```
+
+Поиск по типу товара, возвращает коды субпозиций без бренда. См. [По типу товара](/ru/guide/searching#by-product-type).
+
+## children
+
+<!-- eslint-skip -->
+
+```ts
+mxik.children(
+  code?: string,
+  options?: ChildrenOptions,
+): Promise<Page<CatalogNode>>
+```
+
+Без кода возвращает группы, с кодом — следующий уровень дерева под ним. Для кодов без потомков отклоняется с `TypeError`. См. [Дерево](/ru/guide/catalog#tree).
+
+## stats, units, benefits
+
+<!-- eslint-skip -->
+
+```ts
+mxik.stats(options?: RequestOptions): Promise<CatalogStats>
+mxik.units(options?: RequestOptions): Promise<Unit[]>
+mxik.benefits(options?: RequestOptions): Promise<Benefit[]>
+```
+
+Размер каталога, единицы измерения и льготы. См. [Справочники](/ru/guide/catalog#reference-data).
+
 ## searchAll, filterAll
 
 <!-- eslint-skip -->

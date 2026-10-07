@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `card(code)`: card of a code with barcode, short name, tax benefit and packages, from the endpoint the site uses now. Returns `null` for unknown codes.
+- `searchSubpositions(query)`: search by product type, returns sub-position codes without a brand.
+- `children(code?)`: browse the catalog tree from groups down to codes.
+- `stats()`, `units()` and `benefits()`: catalog size, units of measurement and tax benefits.
+- Types `MxikCard`, `MxikCardPackage`, `CatalogNode`, `ChildrenOptions`, `CatalogStats`, `Unit`, `Benefit`.
+- Catalog page in the documentation.
+
+### Changed
+
+- `MxikError.reason` now contains the body of HTTP error responses.
+
 ## [1.3.0] - 2026-10-07
 
 ### Added

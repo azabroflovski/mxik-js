@@ -10,6 +10,7 @@ interface Labels {
   gettingStarted: string
   searching: string
   options: string
+  catalog: string
   cache: string
   errors: string
   api: string
@@ -36,6 +37,7 @@ function themeConfig(prefix: string, t: Labels): DefaultTheme.Config {
         items: [
           { text: t.gettingStarted, link: `${prefix}/guide/getting-started` },
           { text: t.searching, link: `${prefix}/guide/searching` },
+          { text: t.catalog, link: `${prefix}/guide/catalog` },
           { text: t.options, link: `${prefix}/guide/options` },
           { text: t.cache, link: `${prefix}/guide/cache` },
           { text: t.errors, link: `${prefix}/guide/errors` },
@@ -69,6 +71,7 @@ export default defineConfig({
           reference: 'Reference',
           gettingStarted: 'Getting started',
           searching: 'Searching',
+          catalog: 'Catalog',
           options: 'Client options',
           cache: 'Cache',
           errors: 'Errors',
@@ -94,6 +97,7 @@ export default defineConfig({
           reference: 'Справочник',
           gettingStarted: 'Начало работы',
           searching: 'Поиск',
+          catalog: 'Каталог',
           options: 'Настройки клиента',
           cache: 'Кеш',
           errors: 'Ошибки',
@@ -134,6 +138,7 @@ export default defineConfig({
           reference: 'Maʼlumotnoma',
           gettingStarted: 'Boshlash',
           searching: 'Qidiruv',
+          catalog: 'Katalog',
           options: 'Mijoz sozlamalari',
           cache: 'Kesh',
           errors: 'Xatolar',

@@ -60,6 +60,57 @@ mxik.dvCert(
 
 Sertifikat raqamiga bogʻliq kodlar. Qarang: [Sertifikat raqami boʻyicha](/uz/guide/searching#by-certificate-number).
 
+## card
+
+<!-- eslint-skip -->
+
+```ts
+mxik.card(
+  code: string,
+  options?: RequestOptions,
+): Promise<MxikCard | null>
+```
+
+Bitta tildagi nomlar, shtrix-kod, qisqa nom, imtiyoz va qadoqlar bilan kod kartochkasi yoki kod mavjud boʻlmasa `null`. Qarang: [Alohida kod](/uz/guide/searching#a-single-code).
+
+## searchSubpositions
+
+<!-- eslint-skip -->
+
+```ts
+mxik.searchSubpositions(
+  query: string,
+  options?: PageOptions,
+): Promise<Page<CatalogItem>>
+```
+
+Mahsulot turi boʻyicha qidiruv, brendsiz subpozitsiya kodlarini qaytaradi. Qarang: [Mahsulot turi boʻyicha](/uz/guide/searching#by-product-type).
+
+## children
+
+<!-- eslint-skip -->
+
+```ts
+mxik.children(
+  code?: string,
+  options?: ChildrenOptions,
+): Promise<Page<CatalogNode>>
+```
+
+Kodsiz chaqirilsa guruhlarni, kod bilan esa uning ostidagi keyingi daraja elementlarini qaytaradi. Ostki darajasi yoʻq kodlar uchun `TypeError` bilan rad etiladi. Qarang: [Daraxt](/uz/guide/catalog#tree).
+
+## stats, units, benefits
+
+<!-- eslint-skip -->
+
+```ts
+mxik.stats(options?: RequestOptions): Promise<CatalogStats>
+mxik.units(options?: RequestOptions): Promise<Unit[]>
+mxik.benefits(options?: RequestOptions): Promise<Benefit[]>
+```
+
+Katalog hajmi, oʻlchov birliklari va imtiyozlar. Qarang: [Maʼlumotnomalar](/uz/guide/catalog#reference-data).
+
 ## searchAll, filterAll
 
 <!-- eslint-skip -->
