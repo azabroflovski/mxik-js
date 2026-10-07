@@ -15,7 +15,7 @@ export interface Mxik {
   filter: (filters: Filters, options?: PageOptions) => Promise<Page<CatalogItem>>
   /** Iterates over all filter results, fetching pages lazily. */
   filterAll: (filters: Filters, options?: Omit<PageOptions, 'page'>) => AsyncGenerator<CatalogItem>
-  /** Codes linked to a DV (conformity) certificate number. */
+  /** Codes linked to a certificate number (the API's `dv-cert-number` search). */
   dvCert: (certNumber: string, options?: PageOptions) => Promise<Page<CatalogItem>>
   cache: {
     /** Removes all cached results. Does nothing when caching is off. */

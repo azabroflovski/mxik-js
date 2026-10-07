@@ -1,6 +1,10 @@
-# Getting Started
+# Getting started
 
-## Installation
+MXIK (ИКПУ) is the national catalogue of goods and services of Uzbekistan. Its 17-digit codes go on invoices and other electronic accounting documents, and [tasnif.soliq.uz](https://tasnif.soliq.uz) is where you look them up.
+
+`mxik` calls the same API the site uses, so you can find codes from your own code: by keyword, barcode, brand or certificate number.
+
+## Install
 
 ::: code-group
 
@@ -12,13 +16,54 @@ npm i mxik
 pnpm add mxik
 ```
 
+```sh [yarn]
+yarn add mxik
+```
+
 ```sh [bun]
 bun add mxik
 ```
 
 :::
 
-Works in Node 20+, Bun, Deno, browsers and edge runtimes. Both ESM and CommonJS are supported:
+In Deno, import it as `npm:mxik`.
+
+## First request
+
+```ts
+import { createMxik } from 'mxik'
+
+const mxik = createMxik()
+
+const { items, total } = await mxik.search('Maccoffee')
+```
+
+`items` is the first page of results, 20 by default, and `total` is how many there are overall. Each item has the code, its name and the catalogue hierarchy around it:
+
+```ts
+items[0].mxikCode // '00901001001048023'
+items[0].name // 'Молотый (порошкообразный) кофе: Maccoffee, в пакет 3в1 20г'
+items[0].groupName // 'КОФЕ, ЧАЙ И СПЕЦИИ'
+```
+
+When you already have a code, fetch its full card:
+
+```ts
+const details = await mxik.get('00901001001048023')
+
+details?.subPositionNameRu // 'Молотый (порошкообразный) кофе'
+details?.subPositionNameUz // 'Майдаланган (кукунсимон) кофе'
+```
+
+`get()` returns `null` when the code doesn't exist.
+
+## Where it runs
+
+- Node.js 20 or newer, Bun and Deno.
+- Browsers: the API allows cross-origin requests.
+- Edge runtimes and anything else with `fetch`. You can also [pass your own](./options#custom-fetch).
+
+The package ships ESM and CommonJS builds with type declarations:
 
 ```ts
 import { createMxik } from 'mxik'
@@ -26,211 +71,19 @@ import { createMxik } from 'mxik'
 const { createMxik } = require('mxik')
 ```
 
-## Create a client
+## Before you ship
 
-```ts
-const mxik = createMxik()
-```
-
-All options are optional:
-
-```ts
-const mxik = createMxik({
-  lang: 'uz', // 'ru' | 'uz', default 'ru'
-  pageSize: 50, // default 20
-  timeout: 5000, // ms, 0 disables it, default 10 000
-  baseURL: 'https://my-proxy.local/cls-api', // default https://tasnif.soliq.uz/api/cls-api
-  fetch: customFetch, // default globalThis.fetch
-  headers: { 'x-my-header': '1' },
-  cache: true, // see Cache below, default off
-})
-```
-
-The client is a plain object, methods can be destructured:
-
-```ts
-const { search, get } = createMxik()
-```
-
-## Search
-
-```ts
-const page = await mxik.search('кофе')
-
-page.items // SearchItem[]
-page.total // total matches across all pages
-page.page // current page, 1-based
-page.size
-page.hasNext
-```
-
-Every paginated method accepts `page`, `size`, `lang` and `signal`:
-
-```ts
-await mxik.search('кофе', { page: 2, size: 100, lang: 'uz' })
-```
-
-## Get a code
-
-```ts
-const details = await mxik.get('00406001001232001')
-
-if (details) {
-  details.subPositionNameRu // names in every language
-  details.packageNames // available packages
-}
-```
-
-Returns `null` when the code doesn't exist. Use `isMxikCode()` to validate the format before making a request:
-
-```ts
-import { isMxikCode } from 'mxik'
-
-isMxikCode('00406001001232001') // true
-```
-
-::: tip
-Keep codes as strings: they have leading zeros which numbers drop.
+::: warning Not an official SDK
+The library uses the public API behind tasnif.soliq.uz. It isn't documented and may change without notice. If a response suddenly looks different, [open an issue](https://github.com/azabroflovski/mxik-js/issues).
 :::
 
-## Filter
-
-```ts
-await mxik.filter({ brand: 'Samsung' })
-await mxik.filter({ text: 'xiaomi', brand: 'xiaomi' })
-await mxik.filter({ code: '08504003009011001' })
-await mxik.filter({ barcode: '6934177746536' })
-```
-
-| Filter    | Description                                                 |
-| --------- | ----------------------------------------------------------- |
-| `text`    | Full-text match over code, name, brand and attributes       |
-| `brand`   | Brand name, partial and case-insensitive                    |
-| `code`    | Exact 17-digit MXIK code                                    |
-| `barcode` | Product barcode (GTIN). When set, other filters are ignored |
-
-## DV certificate
-
-```ts
-await mxik.dvCert('UZ.123456')
-```
-
-## All pages
-
-`searchAll` and `filterAll` return async iterators that fetch pages lazily, so you can stop at any time:
-
-```ts
-for await (const item of mxik.filterAll({ brand: 'Xiaomi' }, { size: 100 })) {
-  if (item.internationalCode === barcode)
-    break
-}
-```
-
-## Cache
-
-Off by default. The catalog changes rarely, so caching is worth enabling for anything that repeats lookups:
-
-```ts
-const mxik = createMxik({ cache: true })
-```
-
-This uses an in-memory cache with 1 hour TTL that keeps up to 500 results and evicts the least recently used. To tune it, pass the memory cache yourself:
-
-```ts
-import { createMemoryCache, createMxik } from 'mxik'
-
-const mxik = createMxik({
-  cache: createMemoryCache({
-    ttl: 10 * 60 * 1000, // 10 minutes
-    max: 2000,
-  }),
-})
-```
-
-What gets cached:
-
-- Results of `search`, `get`, `filter` and `dvCert`, including pages fetched by `searchAll` / `filterAll`.
-- "Not found" results: `null` from `get()` and empty pages.
-- Not errors: a failed request is retried next time.
-
-The key is the full request URL, so different queries, pages, sizes and languages are cached separately.
-
-::: warning
-Cached results are shared objects. Don't mutate them, or the next call will return your changes.
+::: warning Hosting outside Uzbekistan
+Requests from GitHub-hosted CI runners (USA) hang until they time out. Before deploying to a server outside Uzbekistan, check that it can reach `tasnif.soliq.uz`. If it can't, route requests through a proxy with the [`baseURL`](./options#proxy) option.
 :::
 
-### Clearing
+## Next steps
 
-```ts
-await mxik.cache.clear()
-```
-
-Does nothing when caching is off, so it's safe to call unconditionally.
-
-### Custom cache
-
-Pass any object implementing `MxikCache`, a plain `Map` included:
-
-```ts
-interface MxikCache {
-  get: (key: string) => unknown // undefined on a miss
-  set: (key: string, value: unknown) => unknown
-  delete: (key: string) => unknown
-  clear: () => unknown // called by mxik.cache.clear()
-}
-```
-
-Methods may be async, and expiration is up to the implementation. `null` is a valid value (code not found), only `undefined` means a miss. If the cache is shared with other data, `clear()` should remove only the client's entries.
-
-Redis example: values go into separate keys with a prefix so Redis expires them itself, and a set of keys makes `clear()` precise:
-
-```ts
-import type { MxikCache } from 'mxik'
-
-function createRedisCache(redis: Redis, ttl = 24 * 60 * 60 * 1000): MxikCache {
-  const prefix = 'mxik:'
-  return {
-    async get(key) {
-      const raw = await redis.get(prefix + key)
-      return raw === null ? undefined : JSON.parse(raw)
-    },
-    async set(key, value) {
-      await redis.set(prefix + key, JSON.stringify(value), 'PX', ttl)
-      await redis.sadd(`${prefix}keys`, prefix + key)
-    },
-    async delete(key) {
-      await redis.del(prefix + key)
-      await redis.srem(`${prefix}keys`, prefix + key)
-    },
-    async clear() {
-      const keys = await redis.smembers(`${prefix}keys`)
-      await redis.del(`${prefix}keys`, ...keys)
-    },
-  }
-}
-
-const mxik = createMxik({ cache: createRedisCache(redis) })
-```
-
-## Errors
-
-| What happened                             | What you get                    |
-| ----------------------------------------- | ------------------------------- |
-| HTTP error, non-JSON body, `success: false` | `MxikError` (`status`, `reason`) |
-| Code not found in `get()`                 | `null`                          |
-| Nothing matched in `search()`, `filter()` | empty page                      |
-| Network error                             | `TypeError` from `fetch`        |
-| Timeout                                   | `DOMException` `TimeoutError`   |
-| Aborted via `signal`                      | `DOMException` `AbortError`     |
-
-```ts
-import { MxikError } from 'mxik'
-
-try {
-  await mxik.search('кофе')
-}
-catch (error) {
-  if (error instanceof MxikError)
-    console.log(error.status, error.reason)
-}
-```
+- [Searching](./searching): all lookup methods, pagination and languages.
+- [Client options](./options): timeouts, proxies, custom `fetch`.
+- [Cache](./cache): skip repeated requests.
+- [Errors](./errors): what can go wrong and how to tell the cases apart.

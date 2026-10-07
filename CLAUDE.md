@@ -27,7 +27,7 @@ Before committing: lint, typecheck, test, build must all pass. CI (`.github/work
 - `lib/utils.ts`: `isMxikCode()`
 - `lib/legacy/`: deprecated 1.1 API (`MxikClient`, `createMxikClient`, `fetchBy*`) and its types
 - `test/unit/`: bun:test, inject `fetch` via `createMxik({ fetch })`; `test/live/`: real API
-- `docs/`: VitePress, `docs/api.md` pulls types straight from `lib/types.ts` and `lib/legacy/types.ts`
+- `docs/`: VitePress. `guide/` has getting-started, searching, options, cache, errors, migration; `api.md` pulls types straight from `lib/types.ts` and `lib/legacy/types.ts`. Code examples use real API values (e.g. `00901001001048023`, Maccoffee), verify new ones against the live API
 
 ## tasnif.soliq.uz API quirks
 
@@ -61,7 +61,7 @@ Verified against the live API, the code depends on them:
 - Commit messages: conventional commits (`feat:`, `fix:`, `docs:`, `ci:`, `chore(release): vX.Y.Z`). No `Co-Authored-By` trailers and no "Generated with Claude Code" lines in commits or PRs.
 - Merge PRs with rebase to keep history linear.
 - CHANGELOG follows Keep a Changelog, written by hand from the user's perspective, no emoji. New changes go under `[Unreleased]`.
-- No emoji in README or docs text.
+- No emoji in README or docs text. Plain, specific wording: no marketing phrases ("out of the box", "simple", "powerful", "seamless"), sentence-case headings.
 - Docs, README and CHANGELOG are updated in the same PR as the code.
 
 ## Release
