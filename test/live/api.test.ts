@@ -65,6 +65,40 @@ describe('live API', () => {
     expect(codes.size).toBe(5)
   })
 
+  test('card', async () => {
+    const card = await mxik.card(CODE)
+
+    expect(card?.mxikCode).toBe(CODE)
+    expect(card?.mxikName).toBeString()
+  })
+
+  test('card unknown code', async () => {
+    expect(await mxik.card('99999999999999999')).toBeNull()
+  })
+
+  test('searchSubpositions', async () => {
+    const page = await mxik.searchSubpositions('кофе', { size: 3 })
+    expect(page.items.every(i => i.mxikCode.endsWith('000000'))).toBe(true)
+  })
+
+  test('children walks the tree down to codes', async () => {
+    let code: string | undefined
+    for (const length of [3, 5, 8, 11, 14, 17]) {
+      const { items } = await mxik.children(code, { size: 5 })
+      const next = items.find(i => i.count > 0)
+      expect(next?.code).toHaveLength(length)
+      code = next!.code
+    }
+  })
+
+  test('references', async () => {
+    const [stats, units, benefits] = await Promise.all([mxik.stats(), mxik.units(), mxik.benefits()])
+
+    expect(stats.mxikCount).toBeGreaterThan(100_000)
+    expect(units.length).toBeGreaterThan(10)
+    expect(benefits.length).toBeGreaterThan(10)
+  })
+
   test('dvCert', async () => {
     const page = await mxik.dvCert('1', { size: 1 })
     expect(Array.isArray(page.items)).toBe(true)
