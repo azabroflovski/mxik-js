@@ -31,6 +31,13 @@ classes.items[0] // { code: '00901', name: 'Кофе', count: 425 }
 await mxik.children('00901001001', { text: 'jardin', size: 50 })
 ```
 
+Чтобы пройти по всем страницам, используйте `childrenAll()`:
+
+```ts
+for await (const brand of mxik.childrenAll('00901001001'))
+  console.log(brand.code, brand.name)
+```
+
 У 17-значного кода нет потомков, а коды другой длины недопустимы: в обоих случаях `children()` отклоняется с `TypeError`.
 
 ## Справочники {#reference-data}

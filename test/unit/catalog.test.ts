@@ -107,6 +107,19 @@ describe('children', () => {
     expect(page.items[0]).toEqual({ code: '00901001001048001', name: 'Café pho', count: 1, internationalCode: '8886300070095' })
   })
 
+  test('childrenAll walks all pages', async () => {
+    const { fetch, calls } = mockFetch(
+      list([{ code: '00901', name: 'Кофе', count: 425 }, { code: '00902', name: 'Чай', count: 1805 }], 3),
+      list([{ code: '00903', name: 'Мате', count: 1 }], 3),
+    )
+    const codes: string[] = []
+    for await (const node of createMxik({ fetch, pageSize: 2 }).childrenAll('009'))
+      codes.push(node.code)
+
+    expect(codes).toEqual(['00901', '00902', '00903'])
+    expect(calls.map(c => c.url.searchParams.get('page'))).toEqual(['0', '1'])
+  })
+
   test('rejects codes without children', async () => {
     const { fetch, calls } = mockFetch(list([]))
     await expect(createMxik({ fetch }).children('00901001001048023')).rejects.toBeInstanceOf(TypeError)

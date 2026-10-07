@@ -31,6 +31,13 @@ Results come in pages, like [search](./searching#pages). Filter a level by name 
 await mxik.children('00901001001', { text: 'jardin', size: 50 })
 ```
 
+To go through every page, use `childrenAll()`:
+
+```ts
+for await (const brand of mxik.childrenAll('00901001001'))
+  console.log(brand.code, brand.name)
+```
+
 A 17-digit code has no children, and other lengths aren't valid codes: in both cases `children()` rejects with a `TypeError`.
 
 ## Reference data

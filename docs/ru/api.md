@@ -86,7 +86,7 @@ mxik.searchSubpositions(
 
 Поиск по типу товара, возвращает коды субпозиций без бренда. См. [По типу товара](/ru/guide/searching#by-product-type).
 
-## children
+## children, childrenAll {#children}
 
 <!-- eslint-skip -->
 
@@ -95,6 +95,11 @@ mxik.children(
   code?: string,
   options?: ChildrenOptions,
 ): Promise<Page<CatalogNode>>
+
+mxik.childrenAll(
+  code?: string,
+  options?: Omit<ChildrenOptions, 'page'>,
+): AsyncGenerator<CatalogNode>
 ```
 
 Без кода возвращает группы, с кодом — следующий уровень дерева под ним. Для кодов без потомков отклоняется с `TypeError`. См. [Дерево](/ru/guide/catalog#tree).

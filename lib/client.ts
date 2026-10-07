@@ -41,6 +41,8 @@ export interface Mxik {
   searchSubpositions: (query: string, options?: PageOptions) => Promise<Page<CatalogItem>>
   /** Groups when called without a code, otherwise the next level of the catalog tree under `code`. */
   children: (code?: string, options?: ChildrenOptions) => Promise<Page<CatalogNode>>
+  /** Iterates over all children of `code`, fetching pages lazily. */
+  childrenAll: (code?: string, options?: Omit<ChildrenOptions, 'page'>) => AsyncGenerator<CatalogNode>
   /** Number of groups, classes, positions, sub-positions, brands and codes in the catalog. */
   stats: (options?: RequestOptions) => Promise<CatalogStats>
   /** Units of measurement. */
@@ -229,6 +231,7 @@ export function createMxik(options: MxikOptions = {}): Mxik {
     card,
     searchSubpositions,
     children,
+    childrenAll: (code, opts) => paginate(page => children(code, { ...opts, page })),
     stats,
     units,
     taxBenefits,

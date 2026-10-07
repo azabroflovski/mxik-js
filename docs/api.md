@@ -86,7 +86,7 @@ mxik.searchSubpositions(
 
 Search by product type, returns sub-position codes without a brand. See [By product type](/guide/searching#by-product-type).
 
-## children
+## children, childrenAll {#children}
 
 <!-- eslint-skip -->
 
@@ -95,6 +95,11 @@ mxik.children(
   code?: string,
   options?: ChildrenOptions,
 ): Promise<Page<CatalogNode>>
+
+mxik.childrenAll(
+  code?: string,
+  options?: Omit<ChildrenOptions, 'page'>,
+): AsyncGenerator<CatalogNode>
 ```
 
 Groups when called without a code, otherwise the next level of the tree under `code`. Rejects with `TypeError` for codes without children. See [Tree](/guide/catalog#tree).

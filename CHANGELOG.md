@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `childrenAll(code?)`: iterate over every child of a catalog node, fetching pages lazily.
+
 ## [1.4.0] - 2026-10-07
 
 ### Added

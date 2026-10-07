@@ -86,7 +86,7 @@ mxik.searchSubpositions(
 
 Mahsulot turi boʻyicha qidiruv, brendsiz subpozitsiya kodlarini qaytaradi. Qarang: [Mahsulot turi boʻyicha](/uz/guide/searching#by-product-type).
 
-## children
+## children, childrenAll {#children}
 
 <!-- eslint-skip -->
 
@@ -95,6 +95,11 @@ mxik.children(
   code?: string,
   options?: ChildrenOptions,
 ): Promise<Page<CatalogNode>>
+
+mxik.childrenAll(
+  code?: string,
+  options?: Omit<ChildrenOptions, 'page'>,
+): AsyncGenerator<CatalogNode>
 ```
 
 Kodsiz chaqirilsa guruhlarni, kod bilan esa uning ostidagi keyingi daraja elementlarini qaytaradi. Ostki darajasi yoʻq kodlar uchun `TypeError` bilan rad etiladi. Qarang: [Daraxt](/uz/guide/catalog#tree).
