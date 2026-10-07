@@ -5,7 +5,9 @@
 [![bundle size](https://img.shields.io/bundlejs/size/mxik)](https://bundlejs.com/?q=mxik)
 [![license](https://img.shields.io/npm/l/mxik)](./LICENSE)
 
-Typed JavaScript client for [tasnif.soliq.uz](https://tasnif.soliq.uz), the national catalogue of goods and services of Uzbekistan. Find MXIK (IKPU) codes by keyword, barcode, brand or certificate number.
+Unofficial typed JavaScript client for [tasnif.soliq.uz](https://tasnif.soliq.uz), the national catalogue of goods and services of Uzbekistan. Find MXIK (IKPU) codes by keyword, barcode, brand or certificate number.
+
+Not affiliated with the State Tax Committee of Uzbekistan or tasnif.soliq.uz.
 
 - Zero dependencies, about 3 kB gzipped
 - ESM and CommonJS, runs in Node 20+, Bun, Deno, browsers and edge runtimes
@@ -118,7 +120,7 @@ catch (error) {
 
 ## Good to know
 
-- This isn't an official SDK. It uses the public API behind tasnif.soliq.uz, which isn't documented and may change.
+- It uses the public API behind tasnif.soliq.uz, which isn't documented and may change.
 - The API may not respond to servers outside Uzbekistan: requests from GitHub-hosted runners time out. Check connectivity before deploying, or use a proxy via `baseURL`.
 
 ## Migrating from 1.1

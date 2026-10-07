@@ -74,7 +74,7 @@ const { createMxik } = require('mxik')
 ## Before you ship
 
 ::: warning Not an official SDK
-The library uses the public API behind tasnif.soliq.uz. It isn't documented and may change without notice. If a response suddenly looks different, [open an issue](https://github.com/azabroflovski/mxik-js/issues).
+The library isn't affiliated with the State Tax Committee of Uzbekistan or tasnif.soliq.uz. It uses the public API behind the site, which isn't documented and may change without notice. If a response suddenly looks different, [open an issue](https://github.com/azabroflovski/mxik-js/issues).
 :::
 
 ::: warning Hosting outside Uzbekistan
