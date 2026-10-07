@@ -83,6 +83,7 @@ Verified against the live API, the code depends on them:
 4. `gh release create vX.Y.Z --verify-tag` with the CHANGELOG section as notes.
 5. `npm publish` is done by the maintainer, not by Claude, from `packages/mxik` (and `packages/mxik-mcp`, after `mxik`). `prepack` copies README/LICENSE from the root, `prepublishOnly` runs typecheck, tests and build.
 6. `mxik-mcp` is versioned separately: its own CHANGELOG, tags `mxik-mcp@X.Y.Z`. Bump its `mxik` range when it starts using new library features.
+7. `mxik-mcp` is listed in the official MCP Registry as `io.github.azabroflovski/mxik`. On every release bump `version` in both `package.json` and `server.json` (a test checks they match). After `npm publish`, the maintainer runs `mcp-publisher publish` in `packages/mxik-mcp` (needs `mcp-publisher login github` once).
 
 ## Ideas not done yet
 

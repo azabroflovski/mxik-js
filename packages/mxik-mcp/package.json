@@ -1,7 +1,8 @@
 {
   "name": "mxik-mcp",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "mcpName": "io.github.azabroflovski/mxik",
   "description": "MCP server for tasnif.soliq.uz: lets AI assistants search MXIK (IKPU) codes",
   "author": {
     "name": "Aza Broflovski",
@@ -18,11 +19,19 @@
   "bugs": {
     "url": "https://github.com/azabroflovski/mxik-js/issues"
   },
-  "keywords": ["mxik", "ikpu", "tasnif.soliq.uz", "mcp", "model-context-protocol"],
+  "keywords": [
+    "mxik",
+    "ikpu",
+    "tasnif.soliq.uz",
+    "mcp",
+    "model-context-protocol"
+  ],
   "bin": {
     "mxik-mcp": "./dist/index.mjs"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=20"
   },
