@@ -121,7 +121,7 @@ catch (error) {
 ## Good to know
 
 - It uses the public API behind tasnif.soliq.uz, which isn't documented and may change.
-- The API may not respond to servers outside Uzbekistan: requests from GitHub-hosted runners time out. Check connectivity before deploying, or use a proxy via `baseURL`.
+- The API may not respond to servers outside Uzbekistan. Check connectivity before deploying, or use a proxy via `baseURL`.
 
 ## Migrating from 1.1
 
