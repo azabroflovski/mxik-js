@@ -5,7 +5,7 @@ MXIK (ИКПУ) is the national catalogue of goods and services of Uzbekistan. I
 `mxik` calls the same API the site uses, so you can find codes from your own code: by keyword, barcode, brand or certificate number.
 
 ::: info Not an official SDK
-The library isn't affiliated with the State Tax Committee of Uzbekistan or tasnif.soliq.uz. It uses the public API behind the site, which isn't documented and may change without notice. If a response suddenly looks different, [open an issue](https://github.com/azabroflovski/mxik-js/issues).
+The library isn't affiliated with the Tax Committee of Uzbekistan or tasnif.soliq.uz. It uses the public API behind the site, which isn't documented and may change without notice. If a response suddenly looks different, [open an issue](https://github.com/azabroflovski/mxik-js/issues).
 :::
 
 ::: warning Hosting outside Uzbekistan

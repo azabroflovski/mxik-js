@@ -3,28 +3,28 @@ layout: home
 
 hero:
   name: mxik
-  text: JavaScript client for tasnif.soliq.uz
-  tagline: Unofficial client for searching MXIK (ИКПУ) codes.
+  text: tasnif.soliq.uz uchun JavaScript mijozi
+  tagline: MXIK kodlarini qidirish uchun norasmiy mijoz.
   actions:
     - theme: brand
-      text: Get started
-      link: /guide/getting-started
+      text: Boshlash
+      link: /uz/guide/getting-started
     - theme: alt
-      text: API reference
-      link: /api
+      text: API maʼlumotnomasi
+      link: /uz/api
     - theme: alt
       text: GitHub
       link: https://github.com/azabroflovski/mxik-js
 
 features:
-  - title: Search
-    details: By keyword, barcode, brand or certificate number. A single code with get().
-  - title: Typed results
-    details: Items and pages instead of raw responses. null for unknown codes, MxikError for API errors.
-  - title: Zero dependencies
-    details: About 3 kB gzipped. ESM and CJS, Node 20+, Bun, Deno, browsers.
-  - title: Cache
-    details: Optional. In-memory LRU, or your own on Redis, KV or a Map.
+  - title: Qidiruv
+    details: Nomi, shtrix-kodi, brendi yoki sertifikat raqami boʻyicha. Bitta kod get() orqali.
+  - title: Tiplangan natijalar
+    details: Xom javoblar oʻrniga elementlar va sahifalar. Mavjud boʻlmagan kod uchun null, API xatolari uchun MxikError.
+  - title: Bogʻliqliklarsiz
+    details: Gzipʼda taxminan 3 kB. ESM va CJS, Node 20+, Bun, Deno, brauzerlar.
+  - title: Kesh
+    details: Ixtiyoriy. Xotiradagi LRU yoki Redis, KV yoxud Map asosidagi oʻzingizniki.
 ---
 
 <div class="home-example">
